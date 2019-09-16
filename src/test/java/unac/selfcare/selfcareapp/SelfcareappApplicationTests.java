@@ -1,4 +1,4 @@
-package co.com.unac.selfcare;
+package unac.selfcare.selfcareapp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SelfcareApplicationTests {
+public class SelfcareappApplicationTests {
 
 	@Test
 	public void contextLoads() {
