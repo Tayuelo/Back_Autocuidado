@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.model.CAA;
 import unac.selfcare.selfcareapp.model.Paciente;
+import unac.selfcare.selfcareapp.model.RCV;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
 import java.util.List;
@@ -30,8 +31,35 @@ public class AppController {
         return service.postPaciente(paciente);
     }
 
+
+
     @PostMapping("/caa")
     public CAA postCaa(@RequestBody CAA caa) {
         return service.postCaa(caa);
+    }
+
+    @GetMapping("/caa")
+    public List<CAA> getCaa() {
+        return service.getCaa();
+    }
+
+    @GetMapping("/rcv")
+    public List<RCV> getRcv() {
+        return service.getRcv();
+    }
+
+    @PostMapping("/rcv")
+    public RCV postRcv(@RequestBody RCV rcv) {
+        return service.postRcv(rcv);
+    }
+
+    @GetMapping("/caa/{userId}")
+    public CAA getCaaById(@PathVariable("userId") String userId){
+        return service.getCaaById(userId);
+    }
+
+    @GetMapping("/rcv/{userId}")
+    public RCV getRcvById(@PathVariable("userId") String userId){
+        return service.getRcvById(userId);
     }
 }

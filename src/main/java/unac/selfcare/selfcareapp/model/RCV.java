@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
-@Document(collection = "caa")
+@Document(collection = "rcv")
 @NoArgsConstructor
-public class CAA {
+public class RCV {
 
     @Id
     private String userId;
