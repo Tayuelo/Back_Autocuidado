@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import unac.selfcare.selfcareapp.model.CAA;
 import unac.selfcare.selfcareapp.model.Dx;
 import unac.selfcare.selfcareapp.model.Paciente;
+import unac.selfcare.selfcareapp.model.Framingham;
 import unac.selfcare.selfcareapp.model.RCV;
-
 import java.util.List;
 
 @Service
@@ -45,6 +45,12 @@ public class ServicesImplementation implements SelfcareServices {
     }
 
     @Override
+
+    public Framingham postFramingham(Framingham framingham) {
+        return framinghamRepository.save(framingham);
+    }
+}
+
     public CAA getCaaById(String userId) {
         return null;
     }
