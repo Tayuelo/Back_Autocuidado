@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unac.selfcare.selfcareapp.model.CAA;
 import unac.selfcare.selfcareapp.model.Paciente;
+import unac.selfcare.selfcareapp.model.Framingham;
 
 import java.util.List;
 
@@ -34,5 +35,10 @@ public class ServicesImplementation implements SelfcareServices {
     @Override
     public CAA postCaa(CAA caa) {
         return caaRepository.save(caa);
+    }
+
+    @Override
+    public Framingham postFramingham(Framingham framingham) {
+        return framinghamRepository.save(framingham);
     }
 }

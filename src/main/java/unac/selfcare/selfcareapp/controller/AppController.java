@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.model.CAA;
 import unac.selfcare.selfcareapp.model.Paciente;
+import unac.selfcare.selfcareapp.model.Framingham;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
 import java.util.List;
@@ -34,4 +35,10 @@ public class AppController {
     public CAA postCaa(@RequestBody CAA caa) {
         return service.postCaa(caa);
     }
+
+    @PostMapping("/framingham")
+    public Framingham postFramingham(@RequestBody Framingham framingham) {
+        return service.postFramingham(framingham);
+    }
 }
+
