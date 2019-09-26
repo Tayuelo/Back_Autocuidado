@@ -2,6 +2,7 @@ package unac.selfcare.selfcareapp.services;
 
 import lombok.Data;
 import unac.selfcare.selfcareapp.model.CAA;
+import unac.selfcare.selfcareapp.model.Framingham;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class Lógica {
         respuestasCaa = caa.getRespuestas();
     }
 
-    public Lógica(RCV rcv) {
+    public Lógica(Framingham rcv) {
         respuestasRcv = rcv.getRespuestas();
     }
 
@@ -58,5 +59,13 @@ public class Lógica {
         if (sum <= 20)
             return MODERADO_RCV;
         return SEVERO_RCV;
+    }
+
+    public String getDx(String resultadoCaa, String resultadoRcv) {
+
+        // TODO: Validar ambos resultados con las necesidades del negocio.
+        // Si es BAJO - LEVE, enviar el color correspondiente.
+
+        return null;
     }
 }

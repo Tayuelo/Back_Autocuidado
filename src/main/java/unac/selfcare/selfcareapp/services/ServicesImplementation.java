@@ -64,8 +64,13 @@ public class ServicesImplementation implements SelfcareServices {
     }
 
     @Override
-    public Dx getDx(String id) {
-        return null;
+    public Dx getDx(String userId) {
+        String resultadoCaa = logic.calcularCaa(getCaaById(userId).getRespuestas());
+        String resultadoRcv = logic.calcularRcv(getFraminghamById(userId).getRespuestas());
+
+        String dxFinal = logic.getDx(resultadoCaa, resultadoRcv);
+
+        return new Dx(userId, resultadoCaa, resultadoRcv, dxFinal);
     }
 
     @Override
