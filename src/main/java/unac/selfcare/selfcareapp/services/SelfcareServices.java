@@ -5,7 +5,7 @@ import unac.selfcare.selfcareapp.model.CAA;
 import unac.selfcare.selfcareapp.model.Dx;
 import unac.selfcare.selfcareapp.model.Paciente;
 import unac.selfcare.selfcareapp.model.Framingham;
-import unac.selfcare.selfcareapp.model.RCV;
+
 import java.util.List;
 
 @Service
@@ -18,16 +18,12 @@ public interface SelfcareServices {
     CAA postCaa(CAA caa);
 
     Framingham postFramingham(Framingham framingham);
-}
+
+    Framingham getFraminghamById(String userId);
+
     CAA getCaaById(String userId);
-
-    RCV getRcvById(String userId);
-
-    RCV postRcv(RCV rcv);
 
     Dx getDx(String id);
 
     List<CAA> getCaa();
-
-    List<RCV> getRcv();
 }

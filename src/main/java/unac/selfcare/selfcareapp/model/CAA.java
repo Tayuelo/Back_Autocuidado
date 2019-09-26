@@ -17,4 +17,5 @@ public class CAA {
     @Id
     private String userId;
     ArrayList<Integer> respuestas;
+    private String result;
 }

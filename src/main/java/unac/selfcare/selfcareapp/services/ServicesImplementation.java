@@ -6,7 +6,7 @@ import unac.selfcare.selfcareapp.model.CAA;
 import unac.selfcare.selfcareapp.model.Dx;
 import unac.selfcare.selfcareapp.model.Paciente;
 import unac.selfcare.selfcareapp.model.Framingham;
-import unac.selfcare.selfcareapp.model.RCV;
+
 import java.util.List;
 
 @Service
@@ -20,12 +20,17 @@ public class ServicesImplementation implements SelfcareServices {
     private DXRepository dxRepository;
     @Autowired
     private RCVRepository rcvRepository;
+    @Autowired
+    private FraminghamRepository framinghamRepository;
 
     private Lógica logic;
 
-    public ServicesImplementation(SelfcareRepository repository, CAARepository caaRepository) {
+    public ServicesImplementation(SelfcareRepository repository, CAARepository caaRepository, DXRepository dxRepository, RCVRepository rcvRepository, FraminghamRepository framinghamRepository) {
         this.repository = repository;
         this.caaRepository = caaRepository;
+        this.dxRepository = dxRepository;
+        this.rcvRepository = rcvRepository;
+        this.framinghamRepository = framinghamRepository;
     }
 
     @Override
@@ -45,24 +50,17 @@ public class ServicesImplementation implements SelfcareServices {
     }
 
     @Override
-
     public Framingham postFramingham(Framingham framingham) {
         return framinghamRepository.save(framingham);
     }
-}
+
+    @Override
+    public Framingham getFraminghamById(String userId) {
+        return framinghamRepository.findByUserId(userId);
+    }
 
     public CAA getCaaById(String userId) {
-        return null;
-    }
-
-    @Override
-    public RCV getRcvById(String userId) {
-        return null;
-    }
-
-    @Override
-    public RCV postRcv(RCV rcv) {
-        return null;
+        return caaRepository.findByUserId(userId);
     }
 
     @Override
@@ -72,11 +70,6 @@ public class ServicesImplementation implements SelfcareServices {
 
     @Override
     public List<CAA> getCaa() {
-        return null;
-    }
-
-    @Override
-    public List<RCV> getRcv() {
-        return null;
+        return caaRepository.findAll();
     }
 }

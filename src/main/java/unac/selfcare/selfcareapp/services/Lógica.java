@@ -2,7 +2,6 @@ package unac.selfcare.selfcareapp.services;
 
 import lombok.Data;
 import unac.selfcare.selfcareapp.model.CAA;
-import unac.selfcare.selfcareapp.model.RCV;
 
 import java.util.ArrayList;
 
@@ -10,17 +9,17 @@ import java.util.ArrayList;
 @Data
 public class Lógica {
 
-    public final String BAJA_CAA = "BAJA";
-    public final String MEDIA_CAA = "MEDIA";
-    public final String ALTA_CAA = "ALTA";
-    public final String LEVE_RCV = "LEVE";
-    public final String MODERADO_RCV = "MODERADO";
-    public final String SEVERO_RCV = "SEVERO";
+    private final String BAJA_CAA = "BAJA";
+    private final String MEDIA_CAA = "MEDIA";
+    private final String ALTA_CAA = "ALTA";
+    private final String LEVE_RCV = "LEVE";
+    private final String MODERADO_RCV = "MODERADO";
+    private final String SEVERO_RCV = "SEVERO";
 
-    public final String AMARILLO = "AMARILLO";
-    public final String NARANJA = "NARANJA";
-    public final String ROJO = "ROJO";
-    public final String VERDE = "VERDE";
+    private final String AMARILLO = "AMARILLO";
+    private final String NARANJA = "NARANJA";
+    private final String ROJO = "ROJO";
+    private final String VERDE = "VERDE";
 
     ArrayList<Integer> respuestasCaa;
     ArrayList<Integer> respuestasRcv;

@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.model.CAA;
 import unac.selfcare.selfcareapp.model.Paciente;
 import unac.selfcare.selfcareapp.model.Framingham;
-import unac.selfcare.selfcareapp.model.RCV;
 
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
@@ -34,7 +33,6 @@ public class AppController {
     }
 
 
-
     @PostMapping("/caa")
     public CAA postCaa(@RequestBody CAA caa) {
         return service.postCaa(caa);
@@ -43,8 +41,9 @@ public class AppController {
     @PostMapping("/framingham")
     public Framingham postFramingham(@RequestBody Framingham framingham) {
         return service.postFramingham(framingham);
+    }
 
-      @GetMapping("/caa")
+    @GetMapping("/caa")
     public List<CAA> getCaa() {
         return service.getCaa();
     }
@@ -60,12 +59,12 @@ public class AppController {
     }
 
     @GetMapping("/caa/{userId}")
-    public CAA getCaaById(@PathVariable("userId") String userId){
+    public CAA getCaaById(@PathVariable("userId") String userId) {
         return service.getCaaById(userId);
     }
 
     @GetMapping("/rcv/{userId}")
-    public RCV getRcvById(@PathVariable("userId") String userId){
+    public RCV getRcvById(@PathVariable("userId") String userId) {
         return service.getRcvById(userId);
 
     }
