@@ -3,9 +3,9 @@ package unac.selfcare.selfcareapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.model.CAA;
+import unac.selfcare.selfcareapp.model.Dx;
 import unac.selfcare.selfcareapp.model.Paciente;
 import unac.selfcare.selfcareapp.model.Framingham;
-
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
 import java.util.List;
@@ -15,47 +15,18 @@ import java.util.List;
 @CrossOrigin("*")
 public class AppController {
 
-    @Autowired(required = true)
+    @Autowired()
     private SelfcareServices service;
 
     public AppController(SelfcareServices service) {
         this.service = service;
     }
 
-    @GetMapping
-    public List<Paciente> getPaciente() {
-        return service.getPacientes();
-    }
 
-    @PostMapping("/post")
-    public Paciente postPaciente(@RequestBody Paciente paciente) {
-        return service.postPaciente(paciente);
-    }
-
-
-    @PostMapping("/caa")
-    public CAA postCaa(@RequestBody CAA caa) {
-        return service.postCaa(caa);
-    }
-
-    @PostMapping("/framingham")
-    public Framingham postFramingham(@RequestBody Framingham framingham) {
-        return service.postFramingham(framingham);
-    }
-
+    // Servicios para CAA
     @GetMapping("/caa")
     public List<CAA> getCaa() {
         return service.getCaa();
-    }
-
-    @GetMapping("/rcv")
-    public List<RCV> getRcv() {
-        return service.getRcv();
-    }
-
-    @PostMapping("/rcv")
-    public RCV postRcv(@RequestBody RCV rcv) {
-        return service.postRcv(rcv);
     }
 
     @GetMapping("/caa/{userId}")
@@ -63,10 +34,30 @@ public class AppController {
         return service.getCaaById(userId);
     }
 
-    @GetMapping("/rcv/{userId}")
-    public RCV getRcvById(@PathVariable("userId") String userId) {
-        return service.getRcvById(userId);
+    @PostMapping("/caa")
+    public CAA postCaa(@RequestBody CAA caa) {
+        return service.postCaa(caa);
+    }
 
+    // Servicios para Framingham
+    @GetMapping("/framingham{userId}")
+    public Framingham getFramingham(@PathVariable("userId") String userId) {
+        return service.getFraminghamById(userId);
+    }
+
+    @GetMapping("/framingham")
+    public List<Framingham> getRcv() {
+        return service.getFramingham();
+    }
+
+    @PostMapping("/framingham")
+    public Framingham postFramingham(@RequestBody Framingham framingham) {
+        return service.postFramingham(framingham);
+    }
+
+    // Servicios DX
+    @GetMapping("/dx/{userId}")
+    public Dx getDx(@PathVariable("userId") String userId) {
+        return service.getDx(userId);
     }
 }
-

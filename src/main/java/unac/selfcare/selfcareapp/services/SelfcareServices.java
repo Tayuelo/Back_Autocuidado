@@ -11,19 +11,17 @@ import java.util.List;
 @Service
 public interface SelfcareServices {
 
-    List<Paciente> getPacientes();
-
-    Paciente postPaciente(Paciente paciente);
-
     CAA postCaa(CAA caa);
 
-    Framingham postFramingham(Framingham framingham);
-
-    Framingham getFraminghamById(String userId);
+    List<CAA> getCaa();
 
     CAA getCaaById(String userId);
 
-    Dx getDx(String id);
+    Framingham postFramingham(Framingham framingham);
 
-    List<CAA> getCaa();
+    List<Framingham> getFramingham();
+
+    Framingham getFraminghamById(String userId);
+
+    Dx getDx(String userId);
 }

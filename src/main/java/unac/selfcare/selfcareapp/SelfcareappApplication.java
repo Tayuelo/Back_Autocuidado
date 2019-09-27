@@ -9,5 +9,4 @@ public class SelfcareappApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SelfcareappApplication.class, args);
 	}
-
 }

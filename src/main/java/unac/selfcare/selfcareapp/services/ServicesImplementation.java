@@ -13,42 +13,21 @@ import java.util.List;
 public class ServicesImplementation implements SelfcareServices {
 
     @Autowired
-    private SelfcareRepository repository;
-    @Autowired
     private CAARepository caaRepository;
     @Autowired
     private DXRepository dxRepository;
     @Autowired
-    private RCVRepository rcvRepository;
-    @Autowired
     private FraminghamRepository framinghamRepository;
 
-    private Lógica logic;
+    private Logica logic;
 
-    public ServicesImplementation(SelfcareRepository repository, CAARepository caaRepository, DXRepository dxRepository, RCVRepository rcvRepository, FraminghamRepository framinghamRepository) {
-        this.repository = repository;
+    public ServicesImplementation(CAARepository caaRepository, DXRepository dxRepository, FraminghamRepository framinghamRepository) {
         this.caaRepository = caaRepository;
         this.dxRepository = dxRepository;
-        this.rcvRepository = rcvRepository;
         this.framinghamRepository = framinghamRepository;
     }
 
-    @Override
-    public List<Paciente> getPacientes() {
-
-        return repository.findAll();
-    }
-
-    @Override
-    public Paciente postPaciente(Paciente paciente) {
-        return repository.save(paciente);
-    }
-
-    @Override
-    public CAA postCaa(CAA caa) {
-        return caaRepository.save(caa);
-    }
-
+    // Servicios para el Framingham
     @Override
     public Framingham postFramingham(Framingham framingham) {
         return framinghamRepository.save(framingham);
@@ -59,22 +38,37 @@ public class ServicesImplementation implements SelfcareServices {
         return framinghamRepository.findByUserId(userId);
     }
 
+    @Override
+    public List<Framingham> getFramingham() {
+        return framinghamRepository.findAll();
+    }
+
+    // Servicios para el CAA
+    @Override
+    public CAA postCaa(CAA caa) {
+        return caaRepository.save(caa);
+    }
+
+    @Override
     public CAA getCaaById(String userId) {
         return caaRepository.findByUserId(userId);
     }
 
     @Override
-    public Dx getDx(String userId) {
-        String resultadoCaa = logic.calcularCaa(getCaaById(userId).getRespuestas());
-        String resultadoRcv = logic.calcularRcv(getFraminghamById(userId).getRespuestas());
-
-        String dxFinal = logic.getDx(resultadoCaa, resultadoRcv);
-
-        return new Dx(userId, resultadoCaa, resultadoRcv, dxFinal);
-    }
-
-    @Override
     public List<CAA> getCaa() {
         return caaRepository.findAll();
+    }
+
+    // Servicios para el Dx
+    @Override
+    public Dx getDx(String userId) {
+        logic = new Logica();
+
+        String resultadoCaa = logic.calcularCaa(getCaaById(userId).getRespuestas());
+        String resultadoRcv = logic.calcularRcv(getFraminghamById(userId).getRespuestas());
+        String dxFinal = logic.getDx(resultadoCaa, resultadoRcv);
+        Dx dx = new Dx(userId, resultadoCaa, resultadoRcv, dxFinal);
+        dxRepository.save(dx);
+        return dx;
     }
 }
