@@ -1,4 +1,4 @@
-package unac.selfcare.selfcareapp.services;
+package unac.selfcare.selfcareapp.services.impl;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,19 +9,19 @@ import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
-public class Logica {
+class Logica {
 
-    private final String BAJA_CAA = "BAJA";
-    private final String MEDIA_CAA = "MEDIA";
-    private final String ALTA_CAA = "ALTA";
-    private final String LEVE_RCV = "LEVE";
-    private final String MODERADO_RCV = "MODERADO";
-    private final String SEVERO_RCV = "SEVERO";
+    private static final String BAJA_CAA = "BAJA";
+    private static final String MEDIA_CAA = "MEDIA";
+    private static final String ALTA_CAA = "ALTA";
+    private static final String LEVE_RCV = "LEVE";
+    private static final String MODERADO_RCV = "MODERADO";
+    private static final String SEVERO_RCV = "SEVERO";
 
-    private final String AMARILLO = "AMARILLO";
-    private final String NARANJA = "NARANJA";
-    private final String ROJO = "ROJO";
-    private final String VERDE = "VERDE";
+    private static final String AMARILLO = "AMARILLO";
+    private static final String NARANJA = "NARANJA";
+    private static final String ROJO = "ROJO";
+    private static final String VERDE = "VERDE";
 
     ArrayList<Integer> respuestasCaa;
     ArrayList<Integer> respuestasRcv;
@@ -57,23 +57,23 @@ public class Logica {
     String getDx(String resultadoCaa, String resultadoRcv) {
 
         if (resultadoCaa.equals(BAJA_CAA) && resultadoRcv.equals(LEVE_RCV)) {
-            return BAJA_CAA +" / "+ LEVE_RCV +" / "+ AMARILLO;
+            return BAJA_CAA + " / " + LEVE_RCV + " / " + AMARILLO;
         } else if (resultadoCaa.equals(BAJA_CAA) && resultadoRcv.equals(MODERADO_RCV)) {
-            return BAJA_CAA +" / "+ MODERADO_RCV +" / "+ NARANJA;
+            return BAJA_CAA + " / " + MODERADO_RCV + " / " + NARANJA;
         } else if (resultadoCaa.equals(BAJA_CAA) && resultadoRcv.equals(SEVERO_RCV)) {
-            return BAJA_CAA +" / "+ SEVERO_RCV +" / "+ ROJO;
+            return BAJA_CAA + " / " + SEVERO_RCV + " / " + ROJO;
         } else if (resultadoCaa.equals(MEDIA_CAA) && resultadoRcv.equals(LEVE_RCV)) {
-            return MEDIA_CAA +" / "+ LEVE_RCV +" / "+ VERDE;
+            return MEDIA_CAA + " / " + LEVE_RCV + " / " + VERDE;
         } else if (resultadoCaa.equals(MEDIA_CAA) && resultadoRcv.equals(MODERADO_RCV)) {
-            return MEDIA_CAA +" / "+ MODERADO_RCV +" / "+ NARANJA;
+            return MEDIA_CAA + " / " + MODERADO_RCV + " / " + NARANJA;
         } else if (resultadoCaa.equals(MEDIA_CAA) && resultadoRcv.equals(SEVERO_RCV)) {
-            return MEDIA_CAA +" / "+ SEVERO_RCV +" / "+ ROJO;
+            return MEDIA_CAA + " / " + SEVERO_RCV + " / " + ROJO;
         } else if (resultadoCaa.equals(ALTA_CAA) && resultadoRcv.equals(LEVE_RCV)) {
-            return ALTA_CAA +" / "+ LEVE_RCV +" / "+ VERDE;
+            return ALTA_CAA + " / " + LEVE_RCV + " / " + VERDE;
         } else if (resultadoCaa.equals(ALTA_CAA) && resultadoRcv.equals(MODERADO_RCV)) {
-            return ALTA_CAA +" / "+ MODERADO_RCV +" / "+ AMARILLO;
+            return ALTA_CAA + " / " + MODERADO_RCV + " / " + AMARILLO;
         } else if (resultadoCaa.equals(ALTA_CAA) && resultadoRcv.equals(SEVERO_RCV)) {
-            return ALTA_CAA +" / "+ SEVERO_RCV +" / "+ NARANJA;
+            return ALTA_CAA + " / " + SEVERO_RCV + " / " + NARANJA;
         }
         return "Resultados inválidos.";
     }

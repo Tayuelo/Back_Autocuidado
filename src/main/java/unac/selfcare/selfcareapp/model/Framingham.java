@@ -16,6 +16,6 @@ import java.util.ArrayList;
 public class Framingham {
 
     @Id
-    private String userId;
+    private String documentId;
     ArrayList<Integer> respuestas;
 }

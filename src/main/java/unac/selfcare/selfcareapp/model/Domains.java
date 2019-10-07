@@ -8,13 +8,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @AllArgsConstructor
-@Document(collection = "dx")
+@Document(collection = "domains")
 @NoArgsConstructor
-public class Dx {
+public class Domains {
 
     @Id
-    private String documentId;
-    private String caa;
-    private String rcv;
-    private String dx;
+    private String domainId;
+    private String domainName;
 }

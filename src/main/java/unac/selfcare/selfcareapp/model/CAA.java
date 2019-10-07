@@ -15,6 +15,6 @@ import java.util.ArrayList;
 public class CAA {
 
     @Id
-    private String userId;
+    private String documentId;
     ArrayList<Integer> respuestas;
 }

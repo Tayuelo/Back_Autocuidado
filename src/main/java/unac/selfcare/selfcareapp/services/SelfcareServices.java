@@ -1,10 +1,7 @@
 package unac.selfcare.selfcareapp.services;
 
 import org.springframework.stereotype.Service;
-import unac.selfcare.selfcareapp.model.CAA;
-import unac.selfcare.selfcareapp.model.Dx;
-import unac.selfcare.selfcareapp.model.Paciente;
-import unac.selfcare.selfcareapp.model.Framingham;
+import unac.selfcare.selfcareapp.model.*;
 
 import java.util.List;
 
@@ -13,15 +10,17 @@ public interface SelfcareServices {
 
     CAA postCaa(CAA caa);
 
-    List<CAA> getCaa();
-
-    CAA getCaaById(String userId);
+    CAA getCaaByDocumentId(String documentId);
 
     Framingham postFramingham(Framingham framingham);
 
-    List<Framingham> getFramingham();
+    Framingham getFraminghamByDocumentId(String documentId);
 
-    Framingham getFraminghamById(String userId);
+    Dx getDx(String documentId);
 
-    Dx getDx(String userId);
+    List<Domains> getDomainById(String domainId);
+
+    List<Diagnostics> getDiagnosticsById(String domainId);
+
+
 }

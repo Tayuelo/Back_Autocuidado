@@ -2,10 +2,9 @@ package unac.selfcare.selfcareapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import unac.selfcare.selfcareapp.model.CAA;
-import unac.selfcare.selfcareapp.model.Dx;
-import unac.selfcare.selfcareapp.model.Paciente;
-import unac.selfcare.selfcareapp.model.Framingham;
+import unac.selfcare.selfcareapp.model.*;
+import unac.selfcare.selfcareapp.model.dtos.PacienteDTO;
+import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
 import java.util.List;
@@ -15,23 +14,40 @@ import java.util.List;
 @CrossOrigin("*")
 public class AppController {
 
-    @Autowired()
+    @Autowired
     private SelfcareServices service;
+    @Autowired
+    private LogInServices logInServices;
 
     public AppController(SelfcareServices service) {
         this.service = service;
     }
 
-
-    // Servicios para CAA
-    @GetMapping("/caa")
-    public List<CAA> getCaa() {
-        return service.getCaa();
+    @GetMapping("/login")
+    public Boolean logInUser(@RequestParam(name = "doc") String documentId,
+                             @RequestParam(name = "password") String password) {
+        return logInServices.logInUser(documentId, password);
     }
 
-    @GetMapping("/caa/{userId}")
-    public CAA getCaaById(@PathVariable("userId") String userId) {
-        return service.getCaaById(userId);
+    @PostMapping("/register")
+    public Paciente registerUser(@RequestBody PacienteDTO pacienteDTO) {
+        return logInServices.registerUser(pacienteDTO);
+    }
+
+    @GetMapping("/pacientes")
+    public List<Paciente> getPacientes() {
+        return logInServices.getPacientes();
+    }
+
+    @GetMapping("/paciente/{doc}")
+    public Paciente getPaciente(@PathVariable("doc") String documentId) {
+        return logInServices.getPaciente(documentId);
+    }
+
+    // Servicios para CAA
+    @GetMapping("/caa/{doc}")
+    public CAA getCaaById(@PathVariable("doc") String documentId) {
+        return service.getCaaByDocumentId(documentId);
     }
 
     @PostMapping("/caa")
@@ -42,12 +58,7 @@ public class AppController {
     // Servicios para Framingham
     @GetMapping("/framingham{userId}")
     public Framingham getFramingham(@PathVariable("userId") String userId) {
-        return service.getFraminghamById(userId);
-    }
-
-    @GetMapping("/framingham")
-    public List<Framingham> getRcv() {
-        return service.getFramingham();
+        return service.getFraminghamByDocumentId(userId);
     }
 
     @PostMapping("/framingham")
@@ -60,4 +71,6 @@ public class AppController {
     public Dx getDx(@PathVariable("userId") String userId) {
         return service.getDx(userId);
     }
+
+    // TODO: Crear servicios para agregar dominios y diagnósticos con los ID's correspondientes
 }
