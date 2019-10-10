@@ -9,10 +9,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "pacientes")
+@Document(collection = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Paciente {
+public class User {
 
     @Id
     private ObjectId userId;
@@ -20,4 +20,5 @@ public class Paciente {
     private String name;
     private String lastName;
     private String password;
+    private String Rol;
 }

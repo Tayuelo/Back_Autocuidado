@@ -3,7 +3,7 @@ package unac.selfcare.selfcareapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.model.*;
-import unac.selfcare.selfcareapp.model.dtos.PacienteDTO;
+import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
@@ -30,18 +30,18 @@ public class AppController {
     }
 
     @PostMapping("/register")
-    public Paciente registerUser(@RequestBody PacienteDTO pacienteDTO) {
-        return logInServices.registerUser(pacienteDTO);
+    public User registerUser(@RequestBody UserDTO userDTO) {
+        return logInServices.registerUser(userDTO);
     }
 
-    @GetMapping("/pacientes")
-    public List<Paciente> getPacientes() {
-        return logInServices.getPacientes();
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return logInServices.getUsers();
     }
 
-    @GetMapping("/paciente/{doc}")
-    public Paciente getPaciente(@PathVariable("doc") String documentId) {
-        return logInServices.getPaciente(documentId);
+    @GetMapping("/user/{doc}")
+    public User getUser(@PathVariable("doc") String documentId) {
+        return logInServices.getUser(documentId);
     }
 
     // Servicios para CAA

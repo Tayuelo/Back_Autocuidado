@@ -3,14 +3,14 @@ package unac.selfcare.selfcareapp.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unac.selfcare.selfcareapp.model.*;
-import unac.selfcare.selfcareapp.model.builders.PacienteBuilder;
-import unac.selfcare.selfcareapp.model.dtos.PacienteDTO;
+import unac.selfcare.selfcareapp.model.builders.UserBuilder;
+import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 import unac.selfcare.selfcareapp.services.repositories.CAARepository;
 import unac.selfcare.selfcareapp.services.repositories.DXRepository;
 import unac.selfcare.selfcareapp.services.repositories.FraminghamRepository;
-import unac.selfcare.selfcareapp.services.repositories.PacienteRepository;
+import unac.selfcare.selfcareapp.services.repositories.UserRepository;
 
 import java.util.List;
 
@@ -24,14 +24,15 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     @Autowired
     private FraminghamRepository framinghamRepository;
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private UserRepository userRepository;
 
     public ServicesImplementation(CAARepository caaRepository, DXRepository dxRepository,
-                                  FraminghamRepository framinghamRepository, PacienteRepository pacienteRepository) {
+                                  FraminghamRepository framinghamRepository, UserRepository userRepository) {
         this.caaRepository = caaRepository;
         this.dxRepository = dxRepository;
         this.framinghamRepository = framinghamRepository;
-        this.pacienteRepository = pacienteRepository;
+        this.userRepository = userRepository;
+
     }
 
     // Servicios para el Framingham
@@ -90,28 +91,28 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public Paciente registerUser(PacienteDTO pacienteDTO) {
+    public User registerUser(UserDTO userDTO) {
 
-        return pacienteRepository.save(PacienteBuilder.build(pacienteDTO));
+        return userRepository.save(UserBuilder.build(userDTO));
     }
 
     @Override
     public Boolean logInUser(String documentId, String password) {
         try {
-            Paciente paciente = pacienteRepository.findByDocumentId(documentId);
-            return paciente.getPassword().equals(password);
+            User user = userRepository.findByDocumentId(documentId);
+            return user.getPassword().equals(password);
         } catch (Exception e) {
             return false;
         }
     }
 
     @Override
-    public List<Paciente> getPacientes() {
-        return pacienteRepository.findAll();
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
     @Override
-    public Paciente getPaciente(String documentId) {
-        return pacienteRepository.findByDocumentId(documentId);
+    public User getUser(String documentId) {
+        return userRepository.findByDocumentId(documentId);
     }
 }
