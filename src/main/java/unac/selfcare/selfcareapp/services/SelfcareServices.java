@@ -18,9 +18,11 @@ public interface SelfcareServices {
 
     Dx getDx(String documentId);
 
-    List<Domains> getDomainById(String domainId);
+    List<Domain> getDomainById(String domainId);
 
     List<Diagnostics> getDiagnosticsById(String domainId);
 
+    List<Diagnostics> saveDiagnostics(String domainId);
 
+    List<Domain> saveDomains(List<Domain> domainList);
 }

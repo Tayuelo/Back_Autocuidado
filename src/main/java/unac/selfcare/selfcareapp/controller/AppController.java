@@ -71,6 +71,4 @@ public class AppController {
     public Dx getDx(@PathVariable("userId") String userId) {
         return service.getDx(userId);
     }
-
-    // TODO: Crear servicios para agregar dominios y diagnósticos con los ID's correspondientes
 }

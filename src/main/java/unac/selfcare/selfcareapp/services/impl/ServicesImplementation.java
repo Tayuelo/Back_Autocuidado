@@ -70,12 +70,22 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public List<Domains> getDomainById(String domainId) {
+    public List<Domain> getDomainById(String domainId) {
         return null;
     }
 
     @Override
     public List<Diagnostics> getDiagnosticsById(String domainId) {
+        return null;
+    }
+
+    @Override
+    public List<Diagnostics> saveDiagnostics(String domainId) {
+        return null;
+    }
+
+    @Override
+    public List<Domain> saveDomains(List<Domain> domainList) {
         return null;
     }
 
