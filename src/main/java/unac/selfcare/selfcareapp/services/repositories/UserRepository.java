@@ -2,10 +2,10 @@ package unac.selfcare.selfcareapp.services.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import unac.selfcare.selfcareapp.model.Paciente;
+import unac.selfcare.selfcareapp.model.User;
 
 @Repository
-public interface PacienteRepository extends MongoRepository<Paciente, String> {
+public interface UserRepository extends MongoRepository<User, String> {
 
-    Paciente findByDocumentId(String documentId);
+    User findByDocumentId(String documentId);
 }

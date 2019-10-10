@@ -1,16 +1,16 @@
 package unac.selfcare.selfcareapp.services;
 
 import org.springframework.stereotype.Service;
-import unac.selfcare.selfcareapp.model.Paciente;
-import unac.selfcare.selfcareapp.model.dtos.PacienteDTO;
+import unac.selfcare.selfcareapp.model.User;
+import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 
 import java.util.List;
 
 @Service
 public interface LogInServices {
 
-    Paciente registerUser(PacienteDTO pacienteDTO);
+    User registerUser(UserDTO userDTO);
     Boolean logInUser(String document, String password);
-    List<Paciente> getPacientes();
-    Paciente getPaciente(String documentId);
+    List<User> getUsers();
+    User getUser(String documentId);
 }
