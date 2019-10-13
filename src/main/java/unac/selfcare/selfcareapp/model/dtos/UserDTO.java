@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class UserDTO {
 
-    private String documentId;
-    private String name;
+    private String documentNumber;
+    private String userName;
     private String lastName;
     private String password;
     private String userRol;

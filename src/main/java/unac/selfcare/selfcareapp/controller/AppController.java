@@ -25,9 +25,9 @@ public class AppController {
     }
 
     @GetMapping("/login")
-    public Boolean logInUser(@RequestParam(name = "doc") String documentId,
+    public Boolean logInUser(@RequestParam(name = "documentNumber") String documentNumber,
                              @RequestParam(name = "password") String password) {
-        return logInServices.logInUser(documentId, password);
+        return logInServices.logInUser(documentNumber, password);
     }
 
     @PostMapping("/register")
@@ -41,14 +41,14 @@ public class AppController {
     }
 
     @GetMapping("/user/{doc}")
-    public User getUser(@PathVariable("doc") String documentId) {
-        return logInServices.getUser(documentId);
+    public User getUser(@PathVariable("doc") String documentNumber) {
+        return logInServices.getUser(documentNumber);
     }
 
     // Servicios para CAA
     @GetMapping("/caa/{doc}")
-    public CAA getCaaById(@PathVariable("doc") String documentId) {
-        return service.getCaaByDocumentId(documentId);
+    public CAA getCaaById(@PathVariable("doc") String documentNumber) {
+        return service.getCaaByDocumentNumber(documentNumber);
     }
 
     @PostMapping("/caa")
@@ -57,9 +57,9 @@ public class AppController {
     }
 
     // Servicios para Framingham
-    @GetMapping("/framingham{userId}")
-    public Framingham getFramingham(@PathVariable("userId") String userId) {
-        return service.getFraminghamByDocumentId(userId);
+    @GetMapping("/framingham{doc}")
+    public Framingham getFramingham(@PathVariable("doc") String documentNumber) {
+        return service.getFraminghamByDocumentNumber(documentNumber);
     }
 
     @PostMapping("/framingham")
@@ -68,8 +68,8 @@ public class AppController {
     }
 
     // Servicios DX
-    @GetMapping("/dx/{userId}")
-    public Dx getDx(@PathVariable("userId") String userId) {
-        return service.getDx(userId);
+    @GetMapping("/dx/{doc}")
+    public Dx getHome(@PathVariable("doc") String documentNumber) {
+        return service.getDx(documentNumber);
     }
 }

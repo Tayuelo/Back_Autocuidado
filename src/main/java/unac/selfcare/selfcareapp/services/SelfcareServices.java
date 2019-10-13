@@ -10,13 +10,13 @@ public interface SelfcareServices {
 
     CAA postCaa(CAA caa);
 
-    CAA getCaaByDocumentId(String documentId);
+    CAA getCaaByDocumentNumber(String documentNumber);
 
     Framingham postFramingham(Framingham framingham);
 
-    Framingham getFraminghamByDocumentId(String documentId);
+    Framingham getFraminghamByDocumentNumber(String documentNumber);
 
-    Dx getDx(String documentId);
+    Dx getDx(String documentNumber);
 
     List<Domain> getDomainById(String domainId);
 

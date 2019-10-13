@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Dx {
 
     @Id
-    private String documentId;
+    private String documentNumber;
     private String caa;
     private String rcv;
     private String dx;

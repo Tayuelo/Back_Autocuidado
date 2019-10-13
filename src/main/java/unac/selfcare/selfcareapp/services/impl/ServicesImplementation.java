@@ -45,8 +45,8 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public Framingham getFraminghamByDocumentId(String documentId) {
-        return framinghamRepository.findByDocumentId(documentId);
+    public Framingham getFraminghamByDocumentNumber(String documentNumber) {
+        return framinghamRepository.findByDocumentNumber(documentNumber);
     }
 
     // Servicios para el CAA
@@ -56,19 +56,19 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public CAA getCaaByDocumentId(String documentId) {
-        return caaRepository.findByDocumentId(documentId);
+    public CAA getCaaByDocumentNumber(String documentNumber) {
+        return caaRepository.findByDocumentNumber(documentNumber);
     }
 
     // Servicios para el Dx
     @Override
-    public Dx getDx(String documentId) {
+    public Dx getDx(String documentNumber) {
         Logica logic = new Logica();
 
-        String resultadoCaa = logic.calcularCaa(getCaaByDocumentId(documentId).getRespuestas());
-        String resultadoRcv = logic.calcularRcv(getFraminghamByDocumentId(documentId).getRespuestas());
+        String resultadoCaa = logic.calcularCaa(getCaaByDocumentNumber(documentNumber).getRespuestas());
+        String resultadoRcv = logic.calcularRcv(getFraminghamByDocumentNumber(documentNumber).getRespuestas());
         String dxFinal = logic.getDx(resultadoCaa, resultadoRcv);
-        Dx dx = new Dx(documentId, resultadoCaa, resultadoRcv, dxFinal);
+        Dx dx = new Dx(documentNumber, resultadoCaa, resultadoRcv, dxFinal);
         dxRepository.save(dx);
         return dx;
     }
@@ -100,9 +100,9 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public Boolean logInUser(String documentId, String password) {
+    public Boolean logInUser(String documentNumber, String password) {
         try {
-            User user = userRepository.findByDocumentId(documentId);
+            User user = userRepository.findByDocumentNumber(documentNumber);
             return user.getPassword().equals(password);
         } catch (Exception e) {
             return false;
@@ -120,7 +120,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public User getUser(String documentId) {
-        return userRepository.findByDocumentId(documentId);
+    public User getUser(String documentNumber) {
+        return userRepository.findByDocumentNumber(documentNumber);
     }
 }

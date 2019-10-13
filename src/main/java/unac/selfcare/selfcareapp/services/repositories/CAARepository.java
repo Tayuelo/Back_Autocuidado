@@ -9,5 +9,5 @@ import unac.selfcare.selfcareapp.model.CAA;
 @Repository
 public interface CAARepository extends MongoRepository<CAA, String> {
 
-    CAA findByDocumentId(String documentId);
+    CAA findByDocumentNumber(String documentNumber);
 }

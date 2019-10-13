@@ -10,8 +10,8 @@ public class UserToDxBuilder {
 
         UserToDx userToDx = new UserToDx();
 
-        userToDx.setDocumentId(user.getDocumentId());
-        userToDx.setName(user.getName());
+        userToDx.setDocumentNumber(user.getDocumentNumber());
+        userToDx.setUserName(user.getUserName());
         userToDx.setLastName(user.getLastName());
         userToDx.setUserRol(user.getUserRol());
 

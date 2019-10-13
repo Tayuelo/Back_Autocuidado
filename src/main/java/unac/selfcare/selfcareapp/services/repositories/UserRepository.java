@@ -7,5 +7,5 @@ import unac.selfcare.selfcareapp.model.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
-    User findByDocumentId(String documentId);
+    User findByDocumentNumber(String documentId);
 }

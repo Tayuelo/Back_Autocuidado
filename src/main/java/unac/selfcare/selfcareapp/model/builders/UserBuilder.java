@@ -9,8 +9,8 @@ public class UserBuilder {
 
         User user = new User();
 
-        user.setDocumentId(userDTO.getDocumentId());
-        user.setName(userDTO.getName());
+        user.setDocumentNumber(userDTO.getDocumentNumber());
+        user.setUserName(userDTO.getUserName());
         user.setLastName(userDTO.getLastName());
         user.setPassword(userDTO.getPassword());
         user.setUserRol(userDTO.getUserRol());

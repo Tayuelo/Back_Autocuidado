@@ -6,5 +6,5 @@ import unac.selfcare.selfcareapp.model.Framingham;
 
 @Repository
 public interface FraminghamRepository extends MongoRepository<Framingham, String> {
-    Framingham findByDocumentId(String documentId);
+    Framingham findByDocumentNumber(String documentNumber);
 }

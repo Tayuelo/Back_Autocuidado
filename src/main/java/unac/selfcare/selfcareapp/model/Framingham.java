@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class Framingham {
 
     @Id
-    private String documentId;
-    private char userGenre;
+    private String documentNumber;
+    private char userGender;
     private int userAge;
     ArrayList<Integer> respuestas;
 }
