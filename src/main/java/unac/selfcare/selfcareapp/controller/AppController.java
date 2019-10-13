@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.dtos.UserDTO;
+import unac.selfcare.selfcareapp.model.dtos.UserToDx;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
@@ -35,7 +36,7 @@ public class AppController {
     }
 
     @GetMapping("/users")
-    public List<User> getUsers() {
+    public List<UserToDx> getUsers() {
         return logInServices.getUsers();
     }
 

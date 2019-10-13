@@ -17,5 +17,7 @@ public class Framingham {
 
     @Id
     private String documentId;
+    private char userGenre;
+    private int userAge;
     ArrayList<Integer> respuestas;
 }

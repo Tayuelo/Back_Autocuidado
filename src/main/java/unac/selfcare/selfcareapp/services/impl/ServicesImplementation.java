@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.builders.UserBuilder;
+import unac.selfcare.selfcareapp.model.builders.UserToDxBuilder;
 import unac.selfcare.selfcareapp.model.dtos.UserDTO;
+import unac.selfcare.selfcareapp.model.dtos.UserToDx;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 import unac.selfcare.selfcareapp.services.repositories.CAARepository;
@@ -12,6 +14,7 @@ import unac.selfcare.selfcareapp.services.repositories.DXRepository;
 import unac.selfcare.selfcareapp.services.repositories.FraminghamRepository;
 import unac.selfcare.selfcareapp.services.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -107,8 +110,13 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public List<UserToDx> getUsers() {
+
+        List<User> users = userRepository.findAll();
+        List<UserToDx> usersToDx = new ArrayList<>();
+
+        users.forEach(user -> usersToDx.add(UserToDxBuilder.build(user)));
+        return usersToDx;
     }
 
     @Override

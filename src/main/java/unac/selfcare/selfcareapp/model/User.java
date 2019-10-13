@@ -15,10 +15,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     @Id
-    private ObjectId userId;
+    private String userId;
     private String documentId;
     private String name;
     private String lastName;
     private String password;
-    private String Rol;
+    private String userRol;
 }

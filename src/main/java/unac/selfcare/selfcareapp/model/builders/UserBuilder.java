@@ -13,7 +13,7 @@ public class UserBuilder {
         user.setName(userDTO.getName());
         user.setLastName(userDTO.getLastName());
         user.setPassword(userDTO.getPassword());
-        user.setRol(userDTO.getRol());
+        user.setUserRol(userDTO.getUserRol());
 
         return user;
     }
