@@ -57,7 +57,7 @@ public class AppController {
     }
 
     // Servicios para Framingham
-    @GetMapping("/framingham{doc}")
+    @GetMapping("/framingham/{doc}")
     public Framingham getFramingham(@PathVariable("doc") String documentNumber) {
         return service.getFraminghamByDocumentNumber(documentNumber);
     }
