@@ -3,6 +3,8 @@ package unac.selfcare.selfcareapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.model.*;
+import unac.selfcare.selfcareapp.model.dtos.CAADto;
+import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
 import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 import unac.selfcare.selfcareapp.model.dtos.UserToDx;
 import unac.selfcare.selfcareapp.services.LogInServices;
@@ -47,13 +49,13 @@ public class AppController {
 
     // Servicios para CAA
     @GetMapping("/caa/{doc}")
-    public CAA getCaaById(@PathVariable("doc") String documentNumber) {
+    public CAA getCaaByDocumentNumber(@PathVariable("doc") String documentNumber) {
         return service.getCaaByDocumentNumber(documentNumber);
     }
 
     @PostMapping("/caa")
-    public CAA postCaa(@RequestBody CAA caa) {
-        return service.postCaa(caa);
+    public CAA postCaa(@RequestBody CAADto caaDto) {
+        return service.postCaa(caaDto);
     }
 
     // Servicios para Framingham
@@ -63,13 +65,21 @@ public class AppController {
     }
 
     @PostMapping("/framingham")
-    public Framingham postFramingham(@RequestBody Framingham framingham) {
-        return service.postFramingham(framingham);
+    public Framingham postFramingham(@RequestBody FraminghamDto framinghamDto) {
+        return service.postFramingham(framinghamDto);
     }
 
     // Servicios DX
+    /*
     @GetMapping("/dx/{doc}")
     public Dx getHome(@PathVariable("doc") String documentNumber) {
         return service.getDx(documentNumber);
+    }
+    */
+
+    // Servicio para obtener el inicio
+    @GetMapping("/home")
+    public Home getHome(@RequestParam(name = "documentNumber") String documentNumber) {
+        return service.getHome(documentNumber);
     }
 }

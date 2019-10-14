@@ -3,16 +3,17 @@ package unac.selfcare.selfcareapp.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unac.selfcare.selfcareapp.model.*;
+import unac.selfcare.selfcareapp.model.builders.CAABuilder;
+import unac.selfcare.selfcareapp.model.builders.FraminghamBuilder;
 import unac.selfcare.selfcareapp.model.builders.UserBuilder;
 import unac.selfcare.selfcareapp.model.builders.UserToDxBuilder;
+import unac.selfcare.selfcareapp.model.dtos.CAADto;
+import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
 import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 import unac.selfcare.selfcareapp.model.dtos.UserToDx;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
-import unac.selfcare.selfcareapp.services.repositories.CAARepository;
-import unac.selfcare.selfcareapp.services.repositories.DXRepository;
-import unac.selfcare.selfcareapp.services.repositories.FraminghamRepository;
-import unac.selfcare.selfcareapp.services.repositories.UserRepository;
+import unac.selfcare.selfcareapp.services.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +29,22 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     private FraminghamRepository framinghamRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private HomeRepository homeRepository;
 
     public ServicesImplementation(CAARepository caaRepository, DXRepository dxRepository,
-                                  FraminghamRepository framinghamRepository, UserRepository userRepository) {
+                                  FraminghamRepository framinghamRepository, UserRepository userRepository, HomeRepository homeRepository) {
         this.caaRepository = caaRepository;
         this.dxRepository = dxRepository;
         this.framinghamRepository = framinghamRepository;
         this.userRepository = userRepository;
-
+        this.homeRepository = homeRepository;
     }
 
     // Servicios para el Framingham
     @Override
-    public Framingham postFramingham(Framingham framingham) {
-        return framinghamRepository.save(framingham);
+    public Framingham postFramingham(FraminghamDto framinghamDto) {
+        return framinghamRepository.save(FraminghamBuilder.build(framinghamDto));
     }
 
     @Override
@@ -51,8 +54,8 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
 
     // Servicios para el CAA
     @Override
-    public CAA postCaa(CAA caa) {
-        return caaRepository.save(caa);
+    public CAA postCaa(CAADto caaDto) {
+        return caaRepository.save(CAABuilder.build(caaDto));
     }
 
     @Override
@@ -61,6 +64,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     // Servicios para el Dx
+    /*
     @Override
     public Dx getDx(String documentNumber) {
         Logica logic = new Logica();
@@ -72,6 +76,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
         dxRepository.save(dx);
         return dx;
     }
+     */
 
     @Override
     public List<Domain> getDomainById(String domainId) {
@@ -91,6 +96,28 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     @Override
     public List<Domain> saveDomains(List<Domain> domainList) {
         return null;
+    }
+
+    @Override
+    public Home getHome(String documentNumber) {
+        Logica logic = new Logica();
+        String resultadoCaa = getCaaByDocumentNumber(documentNumber).getResult();
+        String resultadoRcv = getFraminghamByDocumentNumber(documentNumber).getResult();
+
+        String color = logic.getColor(resultadoCaa, resultadoRcv);
+        switch (color) {
+            case "AMARILLO":
+                return homeRepository.findByTextsByColor("1");
+            case "NARANJA":
+                return homeRepository.findByTextsByColor("2");
+            case "ROJO":
+                return homeRepository.findByTextsByColor("3");
+            case "VERDE":
+                return homeRepository.findByTextsByColor("4");
+            default:
+                break;
+        }
+        return homeRepository.findByTextsByColor("0");
     }
 
     @Override

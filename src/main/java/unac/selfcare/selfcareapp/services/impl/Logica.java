@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
+public
 class Logica {
 
     private static final String BAJA_CAA = "BAJA";
@@ -26,7 +27,7 @@ class Logica {
     ArrayList<Integer> respuestasCaa;
     ArrayList<Integer> respuestasRcv;
 
-    String calcularCaa(ArrayList<Integer> respuestasCaa) {
+    public String calcularCaa(ArrayList<Integer> respuestasCaa) {
 
         int sum = 0;
         for (int i : respuestasCaa)
@@ -41,7 +42,7 @@ class Logica {
         return "El resultado no es válido";
     }
 
-    String calcularRcv(ArrayList<Integer> respuestasRcv) {
+    public String calcularRcv(ArrayList<Integer> respuestasRcv) {
 
         int sum = 0;
         for (int i : respuestasRcv)
@@ -54,26 +55,26 @@ class Logica {
         return SEVERO_RCV;
     }
 
-    String getDx(String resultadoCaa, String resultadoRcv) {
+    String getColor(String resultadoCaa, String resultadoRcv) {
 
         if (resultadoCaa.equals(BAJA_CAA) && resultadoRcv.equals(LEVE_RCV)) {
-            return BAJA_CAA + " / " + LEVE_RCV + " / " + AMARILLO;
+            return AMARILLO;
         } else if (resultadoCaa.equals(BAJA_CAA) && resultadoRcv.equals(MODERADO_RCV)) {
-            return BAJA_CAA + " / " + MODERADO_RCV + " / " + NARANJA;
+            return NARANJA;
         } else if (resultadoCaa.equals(BAJA_CAA) && resultadoRcv.equals(SEVERO_RCV)) {
-            return BAJA_CAA + " / " + SEVERO_RCV + " / " + ROJO;
+            return ROJO;
         } else if (resultadoCaa.equals(MEDIA_CAA) && resultadoRcv.equals(LEVE_RCV)) {
-            return MEDIA_CAA + " / " + LEVE_RCV + " / " + VERDE;
+            return VERDE;
         } else if (resultadoCaa.equals(MEDIA_CAA) && resultadoRcv.equals(MODERADO_RCV)) {
-            return MEDIA_CAA + " / " + MODERADO_RCV + " / " + NARANJA;
+            return NARANJA;
         } else if (resultadoCaa.equals(MEDIA_CAA) && resultadoRcv.equals(SEVERO_RCV)) {
-            return MEDIA_CAA + " / " + SEVERO_RCV + " / " + ROJO;
+            return ROJO;
         } else if (resultadoCaa.equals(ALTA_CAA) && resultadoRcv.equals(LEVE_RCV)) {
-            return ALTA_CAA + " / " + LEVE_RCV + " / " + VERDE;
+            return VERDE;
         } else if (resultadoCaa.equals(ALTA_CAA) && resultadoRcv.equals(MODERADO_RCV)) {
-            return ALTA_CAA + " / " + MODERADO_RCV + " / " + AMARILLO;
+            return AMARILLO;
         } else if (resultadoCaa.equals(ALTA_CAA) && resultadoRcv.equals(SEVERO_RCV)) {
-            return ALTA_CAA + " / " + SEVERO_RCV + " / " + NARANJA;
+            return NARANJA;
         }
         return "Resultados inválidos.";
     }

@@ -20,4 +20,5 @@ public class Framingham {
     private char userGender;
     private int userAge;
     ArrayList<Integer> respuestas;
+    private String result;
 }

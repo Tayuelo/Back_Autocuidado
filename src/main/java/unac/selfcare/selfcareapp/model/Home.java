@@ -6,16 +6,16 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
-@AllArgsConstructor
-@Document(collection = "caa")
+@Document(collection = "texts")
 @NoArgsConstructor
-public class CAA {
+@AllArgsConstructor
+public class Home {
 
     @Id
-    private String documentNumber;
-    private String result;
-    ArrayList<Integer> respuestas;
+    private String id;
+    private int textsByColor;
+    List<String> texts;
 }
