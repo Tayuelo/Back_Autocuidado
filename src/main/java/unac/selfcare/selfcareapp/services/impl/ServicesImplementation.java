@@ -31,14 +31,24 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     private UserRepository userRepository;
     @Autowired
     private HomeRepository homeRepository;
+    @Autowired
+    private DomainRepository domainRepository;
+    @Autowired
+    private NocRepository nocRepository;
+    @Autowired
+    private NicRepository nicRepository;
 
     public ServicesImplementation(CAARepository caaRepository, DXRepository dxRepository,
-                                  FraminghamRepository framinghamRepository, UserRepository userRepository, HomeRepository homeRepository) {
+                                  FraminghamRepository framinghamRepository, UserRepository userRepository, HomeRepository homeRepository,
+                                  DomainRepository domainRepository, NocRepository nocRepository, NicRepository nicRepository) {
         this.caaRepository = caaRepository;
         this.dxRepository = dxRepository;
         this.framinghamRepository = framinghamRepository;
         this.userRepository = userRepository;
         this.homeRepository = homeRepository;
+        this.domainRepository = domainRepository;
+        this.nocRepository = nocRepository;
+        this.nicRepository = nicRepository;
     }
 
     // Servicios para el Framingham
@@ -50,6 +60,36 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     @Override
     public Framingham getFraminghamByDocumentNumber(String documentNumber) {
         return framinghamRepository.findByDocumentNumber(documentNumber);
+    }
+
+    @Override
+    public List<Domain> getDomains() {
+        return domainRepository.findAll();
+    }
+
+    @Override
+    public Domain saveDomain(Domain domain) {
+        return domainRepository.save(domain);
+    }
+
+    @Override
+    public NOC saveNoc(NOC noc) {
+        return nocRepository.save(noc);
+    }
+
+    @Override
+    public List<NOC> getNocsByDiagnosticId(String diagnosticId) {
+        return nocRepository.findByDiagnosticId(diagnosticId);
+    }
+
+    @Override
+    public NIC saveNic(NIC nic) {
+        return nicRepository.save(nic);
+    }
+
+    @Override
+    public List<NIC> getNicsByDiagnosticId(String diagnosticId) {
+        return nicRepository.findByDiagnosticId(diagnosticId);
     }
 
     // Servicios para el CAA
@@ -77,21 +117,6 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
         return dx;
     }
      */
-
-    @Override
-    public List<Domain> getDomainById(String domainId) {
-        return null;
-    }
-
-    @Override
-    public List<Diagnostic> getDiagnosticsById(String domainId) {
-        return null;
-    }
-
-    @Override
-    public List<Diagnostic> saveDiagnostics(String domainId) {
-        return null;
-    }
 
     @Override
     public List<Domain> saveDomains(List<Domain> domainList) {

@@ -1,18 +1,15 @@
 package unac.selfcare.selfcareapp.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Data
-@AllArgsConstructor
-@Document(collection = "diagnostics")
-@NoArgsConstructor
 public class Diagnostic {
 
-    @Id
-    private String domainId;
+    private String diagnosticId;
+    private String code;
     private String diagnosticName;
+    private String definition;
+    private List<String> caracteristicsList;
 }

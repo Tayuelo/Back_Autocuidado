@@ -20,13 +20,19 @@ public interface SelfcareServices {
 
     //Dx getDx(String documentNumber);
 
-    List<Domain> getDomainById(String domainId);
+    List<Domain> getDomains();
 
-    List<Diagnostic> getDiagnosticsById(String domainId);
+    Domain saveDomain(Domain domain);
 
-    List<Diagnostic> saveDiagnostics(String domainId);
+    NOC saveNoc(NOC noc);
 
-    List<Domain> saveDomains(List<Domain> domainList);
+    List<NOC> getNocsByDiagnosticId(String diagnosticId);
+
+    NIC saveNic(NIC nic);
+
+    List<NIC> getNicsByDiagnosticId(String diagnosticId);
 
     Home getHome(String documentNumber);
+
+    List<Domain> saveDomains(List<Domain> domainList);
 }

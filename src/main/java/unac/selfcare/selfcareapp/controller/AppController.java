@@ -86,32 +86,31 @@ public class AppController {
 
     @GetMapping("/domains")
     public List<Domain> getDomains() {
-        List<Domain> domains = new ArrayList<>();
-        Domain domain1 = new Domain();
-        domain1.setDomainId("1");
-        domain1.setDomainName("Seguridad/Protección");
-        Domain domain2 = new Domain();
-        domain2.setDomainId("2");
-        domain2.setDomainName("Cefalea");
-        domains.add(domain1);
-        domains.add(domain2);
-        return domains;
+        return service.getDomains();
     }
 
-    @GetMapping("/{domainId}/diagnostic")
-    public List<Diagnostic> getDiagnostics(@PathVariable("domainId") String domainId) {
-        Diagnostic diagnostic = new Diagnostic();
-        Diagnostic diagnostic1 = new Diagnostic();
-        List<Diagnostic> diagnostics = new ArrayList<>();
-
-        diagnostic.setDomainId(domainId);
-        diagnostic.setDiagnosticName("Hipertensión");
-        diagnostic1.setDomainId(domainId);
-        diagnostic1.setDiagnosticName("Cefalea");
-        diagnostics.add(diagnostic);
-        diagnostics.add(diagnostic1);
-
-        return diagnostics;
+    @PostMapping("/domain")
+    public Domain saveDomain(@RequestBody Domain domain) {
+        return service.saveDomain(domain);
     }
 
+    @PostMapping("/nic")
+    public NIC saveNic(@RequestBody NIC nic) {
+        return service.saveNic(nic);
+    }
+
+    @GetMapping("/nic/{diagnosticId}")
+    public List<NIC> getNicsByDiagnosticId(@PathVariable("diagnosticId") String diagnosticId) {
+        return service.getNicsByDiagnosticId(diagnosticId);
+    }
+
+    @PostMapping("/noc")
+    public NOC saveNoc(@RequestBody NOC noc) {
+        return service.saveNoc(noc);
+    }
+
+    @GetMapping("/noc/{diagnosticId}")
+    public List<NOC> getNocsByDiagnosticId(@PathVariable("diagnosticId") String diagnosticId) {
+        return service.getNocsByDiagnosticId(diagnosticId);
+    }
 }

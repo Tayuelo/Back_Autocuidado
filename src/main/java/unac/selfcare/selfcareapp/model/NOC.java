@@ -10,12 +10,15 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@Document(collection = "domains")
+@Document(collection = "noc")
 @NoArgsConstructor
-public class Domain {
+public class NOC {
 
     @Id
-    private String domainId;
-    private String domainName;
-    private List<Diagnostic> diagnosticList;
+    private String id;
+    private String diagnosticId;
+    private String code;
+    private String nocName;
+    private String definition;
+    private List<Indicators> indicatorsList;
 }
