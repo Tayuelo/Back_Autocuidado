@@ -10,6 +10,7 @@ import unac.selfcare.selfcareapp.model.dtos.UserToDx;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -82,4 +83,35 @@ public class AppController {
     public Home getHome(@RequestParam(name = "documentNumber") String documentNumber) {
         return service.getHome(documentNumber);
     }
+
+    @GetMapping("/domains")
+    public List<Domain> getDomains() {
+        List<Domain> domains = new ArrayList<>();
+        Domain domain1 = new Domain();
+        domain1.setDomainId("1");
+        domain1.setDomainName("Seguridad/Protección");
+        Domain domain2 = new Domain();
+        domain2.setDomainId("2");
+        domain2.setDomainName("Cefalea");
+        domains.add(domain1);
+        domains.add(domain2);
+        return domains;
+    }
+
+    @GetMapping("/{domainId}/diagnostic")
+    public List<Diagnostic> getDiagnostics(@PathVariable("domainId") String domainId) {
+        Diagnostic diagnostic = new Diagnostic();
+        Diagnostic diagnostic1 = new Diagnostic();
+        List<Diagnostic> diagnostics = new ArrayList<>();
+
+        diagnostic.setDomainId(domainId);
+        diagnostic.setDiagnosticName("Hipertensión");
+        diagnostic1.setDomainId(domainId);
+        diagnostic1.setDiagnosticName("Cefalea");
+        diagnostics.add(diagnostic);
+        diagnostics.add(diagnostic1);
+
+        return diagnostics;
+    }
+
 }

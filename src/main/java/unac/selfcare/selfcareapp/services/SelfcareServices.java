@@ -22,9 +22,9 @@ public interface SelfcareServices {
 
     List<Domain> getDomainById(String domainId);
 
-    List<Diagnostics> getDiagnosticsById(String domainId);
+    List<Diagnostic> getDiagnosticsById(String domainId);
 
-    List<Diagnostics> saveDiagnostics(String domainId);
+    List<Diagnostic> saveDiagnostics(String domainId);
 
     List<Domain> saveDomains(List<Domain> domainList);
 

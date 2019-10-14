@@ -16,6 +16,6 @@ public class Home {
 
     @Id
     private String id;
-    private int textsByColor;
+    private String textsByColor;
     List<String> texts;
 }
