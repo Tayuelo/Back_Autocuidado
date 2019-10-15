@@ -10,7 +10,6 @@ import unac.selfcare.selfcareapp.model.dtos.UserToDx;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -48,7 +47,6 @@ public class AppController {
         return logInServices.getUser(documentNumber);
     }
 
-    // Servicios para CAA
     @GetMapping("/caa/{doc}")
     public CAA getCaaByDocumentNumber(@PathVariable("doc") String documentNumber) {
         return service.getCaaByDocumentNumber(documentNumber);
@@ -59,7 +57,6 @@ public class AppController {
         return service.postCaa(caaDto);
     }
 
-    // Servicios para Framingham
     @GetMapping("/framingham/{doc}")
     public Framingham getFramingham(@PathVariable("doc") String documentNumber) {
         return service.getFraminghamByDocumentNumber(documentNumber);
@@ -70,15 +67,6 @@ public class AppController {
         return service.postFramingham(framinghamDto);
     }
 
-    // Servicios DX
-    /*
-    @GetMapping("/dx/{doc}")
-    public Dx getHome(@PathVariable("doc") String documentNumber) {
-        return service.getDx(documentNumber);
-    }
-    */
-
-    // Servicio para obtener el inicio
     @GetMapping("/home")
     public Home getHome(@RequestParam(name = "documentNumber") String documentNumber) {
         return service.getHome(documentNumber);

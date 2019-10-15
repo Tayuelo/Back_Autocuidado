@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class FraminghamDto {
 
     private String documentNumber;
-    private char userGender;
+    private String userGender;
     private int userAge;
-    ArrayList<Integer> respuestas;
+    ArrayList<String> respuestas;
 }

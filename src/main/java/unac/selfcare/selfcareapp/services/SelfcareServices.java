@@ -18,8 +18,6 @@ public interface SelfcareServices {
 
     Framingham getFraminghamByDocumentNumber(String documentNumber);
 
-    //Dx getDx(String documentNumber);
-
     List<Domain> getDomains();
 
     Domain saveDomain(Domain domain);
@@ -33,6 +31,4 @@ public interface SelfcareServices {
     List<NIC> getNicsByDiagnosticId(String diagnosticId);
 
     Home getHome(String documentNumber);
-
-    List<Domain> saveDomains(List<Domain> domainList);
 }

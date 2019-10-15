@@ -103,26 +103,6 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
         return caaRepository.findByDocumentNumber(documentNumber);
     }
 
-    // Servicios para el Dx
-    /*
-    @Override
-    public Dx getDx(String documentNumber) {
-        Logica logic = new Logica();
-
-        String resultadoCaa = logic.calcularCaa(getCaaByDocumentNumber(documentNumber).getRespuestas());
-        String resultadoRcv = logic.calcularRcv(getFraminghamByDocumentNumber(documentNumber).getRespuestas());
-        String dxFinal = logic.getDx(resultadoCaa, resultadoRcv);
-        Dx dx = new Dx(documentNumber, resultadoCaa, resultadoRcv, dxFinal);
-        dxRepository.save(dx);
-        return dx;
-    }
-     */
-
-    @Override
-    public List<Domain> saveDomains(List<Domain> domainList) {
-        return null;
-    }
-
     @Override
     public Home getHome(String documentNumber) {
         Logica logic = new Logica();

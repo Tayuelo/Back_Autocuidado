@@ -14,7 +14,7 @@ public class FraminghamBuilder {
         framingham.setUserGender(framinghamDto.getUserGender());
         framingham.setUserAge(framinghamDto.getUserAge());
         framingham.setRespuestas(framinghamDto.getRespuestas());
-        framingham.setResult(logic.calcularRcv(framinghamDto.getRespuestas()));
+        framingham.setResult(logic.calcularRcv(framinghamDto));
         return framingham;
     }
 }
