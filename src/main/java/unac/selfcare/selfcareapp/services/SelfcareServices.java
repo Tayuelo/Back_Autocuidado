@@ -4,6 +4,10 @@ import org.springframework.stereotype.Service;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.dtos.CAADto;
 import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
+import unac.selfcare.selfcareapp.model.Home;
+import unac.selfcare.selfcareapp.model.web.Domain;
+import unac.selfcare.selfcareapp.model.web.NIC;
+import unac.selfcare.selfcareapp.model.web.NOC;
 
 import java.util.List;
 

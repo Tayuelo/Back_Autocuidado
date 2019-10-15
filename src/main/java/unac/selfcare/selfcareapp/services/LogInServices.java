@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import unac.selfcare.selfcareapp.model.User;
 import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 import unac.selfcare.selfcareapp.model.dtos.UserToDx;
+import unac.selfcare.selfcareapp.utils.FirstLogin;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface LogInServices {
 
     User registerUser(UserDTO userDTO);
-    Boolean logInUser(String document, String password);
+    FirstLogin logInUser(String document, String password);
     List<UserToDx> getUsers();
     User getUser(String documentId);
 }

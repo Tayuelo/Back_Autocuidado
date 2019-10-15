@@ -7,8 +7,13 @@ import unac.selfcare.selfcareapp.model.dtos.CAADto;
 import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
 import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 import unac.selfcare.selfcareapp.model.dtos.UserToDx;
+import unac.selfcare.selfcareapp.model.Home;
+import unac.selfcare.selfcareapp.model.web.Domain;
+import unac.selfcare.selfcareapp.model.web.NIC;
+import unac.selfcare.selfcareapp.model.web.NOC;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
+import unac.selfcare.selfcareapp.utils.FirstLogin;
 
 import java.util.List;
 
@@ -27,8 +32,8 @@ public class AppController {
     }
 
     @GetMapping("/login")
-    public Boolean logInUser(@RequestParam(name = "documentNumber") String documentNumber,
-                             @RequestParam(name = "password") String password) {
+    public FirstLogin logInUser(@RequestParam(name = "documentNumber") String documentNumber,
+                                @RequestParam(name = "password") String password) {
         return logInServices.logInUser(documentNumber, password);
     }
 

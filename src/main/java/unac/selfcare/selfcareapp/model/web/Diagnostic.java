@@ -1,4 +1,4 @@
-package unac.selfcare.selfcareapp.model;
+package unac.selfcare.selfcareapp.model.web;
 
 import lombok.Data;
 

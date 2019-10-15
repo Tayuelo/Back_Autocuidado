@@ -11,9 +11,18 @@ import unac.selfcare.selfcareapp.model.dtos.CAADto;
 import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
 import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 import unac.selfcare.selfcareapp.model.dtos.UserToDx;
+import unac.selfcare.selfcareapp.model.Home;
+import unac.selfcare.selfcareapp.model.web.Domain;
+import unac.selfcare.selfcareapp.model.web.NIC;
+import unac.selfcare.selfcareapp.model.web.NOC;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 import unac.selfcare.selfcareapp.services.repositories.*;
+import unac.selfcare.selfcareapp.services.repositories.web.DomainRepository;
+import unac.selfcare.selfcareapp.services.repositories.web.NicRepository;
+import unac.selfcare.selfcareapp.services.repositories.web.NocRepository;
+import unac.selfcare.selfcareapp.utils.FirstLogin;
+import unac.selfcare.selfcareapp.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,12 +141,17 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public Boolean logInUser(String documentNumber, String password) {
+    public FirstLogin logInUser(String documentNumber, String password) {
+        FirstLogin firstLogin = new FirstLogin();
+        Utils util = new Utils(framinghamRepository);
         try {
             User user = userRepository.findByDocumentNumber(documentNumber);
-            return user.getPassword().equals(password);
+            firstLogin.setFirstLogin(util.validateLogin(documentNumber));
+            firstLogin.setLoginStatus(user.getPassword().equals(password));
+            return firstLogin;
         } catch (Exception e) {
-            return false;
+            firstLogin.setLoginStatus(false);
+            return firstLogin;
         }
     }
 

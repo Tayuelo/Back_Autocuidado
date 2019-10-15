@@ -1,8 +1,8 @@
-package unac.selfcare.selfcareapp.services.repositories;
+package unac.selfcare.selfcareapp.services.repositories.web;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import unac.selfcare.selfcareapp.model.NOC;
+import unac.selfcare.selfcareapp.model.web.NOC;
 
 import java.util.List;
 
