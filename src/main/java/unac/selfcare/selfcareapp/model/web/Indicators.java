@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Indicators {
 
-    private String description;
-    private int escala;
+    private String indicatorDescription;
+    private String escala;
 }

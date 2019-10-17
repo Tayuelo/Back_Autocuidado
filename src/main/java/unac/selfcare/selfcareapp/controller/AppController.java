@@ -8,6 +8,7 @@ import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
 import unac.selfcare.selfcareapp.model.dtos.UserDTO;
 import unac.selfcare.selfcareapp.model.dtos.UserToDx;
 import unac.selfcare.selfcareapp.model.Home;
+import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
 import unac.selfcare.selfcareapp.model.web.NOC;
@@ -105,5 +106,10 @@ public class AppController {
     @GetMapping("/noc/{diagnosticId}")
     public List<NOC> getNocsByDiagnosticId(@PathVariable("diagnosticId") String diagnosticId) {
         return service.getNocsByDiagnosticId(diagnosticId);
+    }
+
+    @GetMapping("/diagnostic/{domainId}")
+    public List<Diagnostic> getDiagnosticsByDomainId(@PathVariable("domainId") String domainId) {
+        return service.getDiagnosticsByDomainId(domainId);
     }
 }

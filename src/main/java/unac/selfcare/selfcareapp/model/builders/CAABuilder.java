@@ -11,7 +11,6 @@ public class CAABuilder {
         CAA caa = new CAA();
 
         caa.setDocumentNumber(caaDto.getDocumentNumber());
-        caa.setDocumentNumber(caaDto.getDocumentNumber());
         caa.setRespuestas(caaDto.getRespuestas());
         caa.setResult(logic.calcularCaa(caaDto.getRespuestas()));
         return caa;

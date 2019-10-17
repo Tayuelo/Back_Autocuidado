@@ -7,17 +7,16 @@ import unac.selfcare.selfcareapp.model.builders.CAABuilder;
 import unac.selfcare.selfcareapp.model.builders.FraminghamBuilder;
 import unac.selfcare.selfcareapp.model.builders.UserBuilder;
 import unac.selfcare.selfcareapp.model.builders.UserToDxBuilder;
-import unac.selfcare.selfcareapp.model.dtos.CAADto;
-import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
-import unac.selfcare.selfcareapp.model.dtos.UserDTO;
-import unac.selfcare.selfcareapp.model.dtos.UserToDx;
+import unac.selfcare.selfcareapp.model.dtos.*;
 import unac.selfcare.selfcareapp.model.Home;
+import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
 import unac.selfcare.selfcareapp.model.web.NOC;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 import unac.selfcare.selfcareapp.services.repositories.*;
+import unac.selfcare.selfcareapp.services.repositories.web.DiagnosticRepository;
 import unac.selfcare.selfcareapp.services.repositories.web.DomainRepository;
 import unac.selfcare.selfcareapp.services.repositories.web.NicRepository;
 import unac.selfcare.selfcareapp.services.repositories.web.NocRepository;
@@ -46,10 +45,12 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     private NocRepository nocRepository;
     @Autowired
     private NicRepository nicRepository;
+    @Autowired
+    private DiagnosticRepository diagnosticRepository;
 
     public ServicesImplementation(CAARepository caaRepository, DXRepository dxRepository,
                                   FraminghamRepository framinghamRepository, UserRepository userRepository, HomeRepository homeRepository,
-                                  DomainRepository domainRepository, NocRepository nocRepository, NicRepository nicRepository) {
+                                  DomainRepository domainRepository, NocRepository nocRepository, NicRepository nicRepository, DiagnosticRepository diagnosticRepository) {
         this.caaRepository = caaRepository;
         this.dxRepository = dxRepository;
         this.framinghamRepository = framinghamRepository;
@@ -58,6 +59,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
         this.domainRepository = domainRepository;
         this.nocRepository = nocRepository;
         this.nicRepository = nicRepository;
+        this.diagnosticRepository = diagnosticRepository;
     }
 
     // Servicios para el Framingham
@@ -74,6 +76,11 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     @Override
     public List<Domain> getDomains() {
         return domainRepository.findAll();
+    }
+
+    @Override
+    public Dx postDx(DxDto dxDto) {
+        return null;
     }
 
     @Override
@@ -132,6 +139,11 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
                 break;
         }
         return homeRepository.findByTextsByColor("0");
+    }
+
+    @Override
+    public List<Diagnostic> getDiagnosticsByDomainId(String domainId) {
+        return diagnosticRepository.findAllByDomainId(domainId);
     }
 
     @Override

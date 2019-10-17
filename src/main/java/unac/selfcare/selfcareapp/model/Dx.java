@@ -14,7 +14,10 @@ public class Dx {
 
     @Id
     private String documentNumber;
-    private String caa;
-    private String rcv;
-    private String dx;
+    private String domainName;
+    private String diagnosticCode;
+    private String diagnosticName;
+    private String diagnosticDefinition;
+
+
 }

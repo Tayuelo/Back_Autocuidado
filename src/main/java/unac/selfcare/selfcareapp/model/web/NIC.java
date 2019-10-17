@@ -17,8 +17,8 @@ public class NIC {
     @Id
     private String id;
     private String diagnosticId;
-    private String code;
+    private String nicCode;
     private String nicName;
-    private String definition;
+    private String nicDefinition;
     private List<String> activitiesList;
 }

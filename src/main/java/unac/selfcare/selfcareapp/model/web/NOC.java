@@ -17,8 +17,8 @@ public class NOC {
     @Id
     private String id;
     private String diagnosticId;
-    private String code;
+    private String nocCode;
     private String nocName;
-    private String definition;
+    private String nocDefinition;
     private List<Indicators> indicatorsList;
 }
