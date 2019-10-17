@@ -112,4 +112,9 @@ public class AppController {
     public List<Diagnostic> getDiagnosticsByDomainId(@PathVariable("domainId") String domainId) {
         return service.getDiagnosticsByDomainId(domainId);
     }
+
+    @PostMapping("/diagnostic")
+    public Diagnostic saveDiagnostic(@RequestBody Diagnostic diagnostic) {
+        return service.saveDiagnostic(diagnostic);
+    }
 }

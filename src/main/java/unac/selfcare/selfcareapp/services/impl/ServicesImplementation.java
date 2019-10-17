@@ -147,6 +147,11 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
+    public Diagnostic saveDiagnostic(Diagnostic diagnostic) {
+        return diagnosticRepository.save(diagnostic);
+    }
+
+    @Override
     public User registerUser(UserDTO userDTO) {
 
         return userRepository.save(UserBuilder.build(userDTO));
