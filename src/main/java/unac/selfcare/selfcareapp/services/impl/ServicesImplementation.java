@@ -122,8 +122,8 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     @Override
     public Home getHome(String documentNumber) {
         Logica logic = new Logica();
-        String resultadoCaa = getCaaByDocumentNumber(documentNumber).getResult();
         String resultadoRcv = getFraminghamByDocumentNumber(documentNumber).getResult();
+        String resultadoCaa = getCaaByDocumentNumber(documentNumber).getResult();
 
         String color = logic.getColor(resultadoCaa, resultadoRcv);
         switch (color) {

@@ -73,8 +73,8 @@ public class AppController {
         return service.postFramingham(framinghamDto);
     }
 
-    @GetMapping("/home")
-    public Home getHome(@RequestParam(name = "documentNumber") String documentNumber) {
+    @GetMapping("/home/{documentNumber}")
+    public Home getHome(@PathVariable("documentNumber") String documentNumber) {
         return service.getHome(documentNumber);
     }
 

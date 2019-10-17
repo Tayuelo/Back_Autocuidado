@@ -18,6 +18,4 @@ public class Dx {
     private String diagnosticCode;
     private String diagnosticName;
     private String diagnosticDefinition;
-
-
 }
