@@ -6,4 +6,5 @@ import unac.selfcare.selfcareapp.model.Dx;
 
 @Repository
 public interface DXRepository extends MongoRepository<Dx, String> {
+    Dx findByDocumentNumber(String documentNumber);
 }

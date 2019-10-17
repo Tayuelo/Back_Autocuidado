@@ -79,8 +79,15 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     }
 
     @Override
-    public Dx postDx(DxDto dxDto) {
-        return null;
+    public Dx getDx(String documentNumber) {
+        Dx dx = dxRepository.findByDocumentNumber("0000000000");
+        dx.setDocumentNumber(documentNumber);
+        return dx;
+    }
+
+    @Override
+    public Dx saveDx(Dx dx) {
+        return dxRepository.save(dx);
     }
 
     @Override
@@ -107,8 +114,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     public List<NIC> getNicsByDiagnosticId(String diagnosticId) {
         return nicRepository.findByDiagnosticId(diagnosticId);
     }
-
-    // Servicios para el CAA
+    
     @Override
     public CAA postCaa(CAADto caaDto) {
         return caaRepository.save(CAABuilder.build(caaDto));

@@ -117,4 +117,14 @@ public class AppController {
     public Diagnostic saveDiagnostic(@RequestBody Diagnostic diagnostic) {
         return service.saveDiagnostic(diagnostic);
     }
+
+    @GetMapping("/finalDx/{documentNumber}")
+    public Dx getDxByDocumentNumber(@PathVariable("documentNumber") String documentNumber) {
+        return service.getDx(documentNumber);
+    }
+
+    @PostMapping("/finalDx")
+    public Dx saveDx(@RequestBody Dx dx) {
+        return service.saveDx(dx);
+    }
 }

@@ -3,7 +3,6 @@ package unac.selfcare.selfcareapp.services;
 import org.springframework.stereotype.Service;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.dtos.CAADto;
-import unac.selfcare.selfcareapp.model.dtos.DxDto;
 import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
 import unac.selfcare.selfcareapp.model.Home;
 import unac.selfcare.selfcareapp.model.web.Diagnostic;
@@ -26,7 +25,9 @@ public interface SelfcareServices {
 
     List<Domain> getDomains();
 
-    Dx postDx(DxDto dxDto);
+    Dx getDx(String documentNumber);
+
+    Dx saveDx(Dx dx);
 
     Domain saveDomain(Domain domain);
 
