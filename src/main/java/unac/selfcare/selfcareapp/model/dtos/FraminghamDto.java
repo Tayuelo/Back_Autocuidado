@@ -10,5 +10,8 @@ public class FraminghamDto {
     private String documentNumber;
     private String userGender;
     private int userAge;
-    ArrayList<String> respuestas;
+    private String colesterol;
+    private Boolean fuma;
+    private String hdl;
+    private String paSistolica;
 }

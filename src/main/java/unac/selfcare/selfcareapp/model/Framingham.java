@@ -19,5 +19,8 @@ public class Framingham {
     private String userGender;
     private int userAge;
     private String result;
-    ArrayList<String> respuestas;
+    private String colesterol;
+    private Boolean fuma;
+    private String hdl;
+    private String paSistolica;
 }

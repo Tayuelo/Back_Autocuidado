@@ -13,7 +13,10 @@ public class FraminghamBuilder {
         framingham.setDocumentNumber(framinghamDto.getDocumentNumber());
         framingham.setUserGender(framinghamDto.getUserGender());
         framingham.setUserAge(framinghamDto.getUserAge());
-        framingham.setRespuestas(framinghamDto.getRespuestas());
+        framingham.setColesterol(framinghamDto.getColesterol());
+        framingham.setFuma(framinghamDto.getFuma());
+        framingham.setHdl(framinghamDto.getHdl());
+        framingham.setPaSistolica(framinghamDto.getPaSistolica());
         framingham.setResult(logic.calcularRcv(framinghamDto));
         return framingham;
     }

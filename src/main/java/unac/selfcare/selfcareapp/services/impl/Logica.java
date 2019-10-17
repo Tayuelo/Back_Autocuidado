@@ -63,10 +63,10 @@ class Logica {
 
         if ("M".equals(dto.getUserGender())) {
             int puntajeEdad = getPuntajeEdadM(dto.getUserAge());
-            int puntajeColesterol = getPuntajeColesterolM(dto.getRespuestas().get(0), dto.getUserAge());
-            int puntajeFumador = getPuntajeFumaM(dto.getRespuestas().get(1), dto.getUserAge());
-            int puntajeHDL = getPuntajeHDL(dto.getRespuestas().get(2));
-            int puntajePASistolica = getPASistolicaM(dto.getRespuestas().get(3), dto.getUserAge());
+            int puntajeColesterol = getPuntajeColesterolM(dto.getColesterol(), dto.getUserAge());
+            int puntajeFumador = getPuntajeFumaM(dto.getFuma(), dto.getUserAge());
+            int puntajeHDL = getPuntajeHDL(dto.getHdl());
+            int puntajePASistolica = getPASistolicaM(dto.getPaSistolica(), dto.getUserAge());
             int result = puntajeEdad + puntajeColesterol + puntajeFumador + puntajeHDL + puntajePASistolica;
             if (result < 10)
                 return LEVE_RCV;
@@ -76,10 +76,10 @@ class Logica {
         }
         if ("F".equals(dto.getUserGender())) {
             int puntajeEdad = getPuntajeEdadF(dto.getUserAge());
-            int puntajeColesterol = getPuntajeColesterolF(dto.getRespuestas().get(0), dto.getUserAge());
-            int puntajeFumador = getPuntajeFumaF(dto.getRespuestas().get(1), dto.getUserAge());
-            int puntajeHDL = getPuntajeHDL(dto.getRespuestas().get(2));
-            int puntajePASistolica = getPASistolicaF(dto.getRespuestas().get(3), dto.getUserAge());
+            int puntajeColesterol = getPuntajeColesterolF(dto.getColesterol(), dto.getUserAge());
+            int puntajeFumador = getPuntajeFumaF(dto.getFuma(), dto.getUserAge());
+            int puntajeHDL = getPuntajeHDL(dto.getHdl());
+            int puntajePASistolica = getPASistolicaF(dto.getPaSistolica(), dto.getUserAge());
             int result = puntajeEdad + puntajeColesterol + puntajeFumador + puntajeHDL + puntajePASistolica;
             if (result < 10)
                 return LEVE_RCV;
@@ -322,43 +322,43 @@ class Logica {
         return puntajeEdad;
     }
 
-    private int getPuntajeFumaM(String s, int age) {
+    private int getPuntajeFumaM(Boolean s, int age) {
         int puntajeFuma = 0;
 
-        if (s.equals("a") && age >= 20 && age <= 39) {
+        if (s.equals(true) && age >= 20 && age <= 39) {
             puntajeFuma = 8;
         }
-        if (s.equals("a") && age >= 40 && age <= 49) {
+        if (s.equals(true) && age >= 40 && age <= 49) {
             puntajeFuma = 5;
         }
-        if (s.equals("a") && age >= 50 && age <= 59) {
+        if (s.equals(true) && age >= 50 && age <= 59) {
             puntajeFuma = 3;
         }
-        if (s.equals("a") && age >= 60 && age <= 69) {
+        if (s.equals(true) && age >= 60 && age <= 69) {
             puntajeFuma = 1;
         }
-        if (s.equals("a") && age >= 70 && age <= 79) {
+        if (s.equals(true) && age >= 70 && age <= 79) {
             puntajeFuma = 1;
         }
         return puntajeFuma;
     }
 
-    private int getPuntajeFumaF(String s, int age) {
+    private int getPuntajeFumaF(Boolean s, int age) {
         int puntajeFuma = 0;
 
-        if (s.equals("a") && age >= 20 && age <= 39) {
+        if (s.equals(true) && age >= 20 && age <= 39) {
             puntajeFuma = 9;
         }
-        if (s.equals("a") && age >= 40 && age <= 49) {
+        if (s.equals(true) && age >= 40 && age <= 49) {
             puntajeFuma = 7;
         }
-        if (s.equals("a") && age >= 50 && age <= 59) {
+        if (s.equals(true) && age >= 50 && age <= 59) {
             puntajeFuma = 4;
         }
-        if (s.equals("a") && age >= 60 && age <= 69) {
+        if (s.equals(true) && age >= 60 && age <= 69) {
             puntajeFuma = 2;
         }
-        if (s.equals("a") && age >= 70 && age <= 79) {
+        if (s.equals(true) && age >= 70 && age <= 79) {
             puntajeFuma = 1;
         }
         return puntajeFuma;
@@ -386,25 +386,16 @@ class Logica {
 
         int puntajePASistolica = 0;
 
-        if (s.equals("nc")) {
+        if (s.equals("b")) {
             puntajePASistolica = 1;
         }
-        if (s.equals("nd")) {
-            puntajePASistolica = 1;
-        }
-        if (s.equals("ne")) {
+        if (s.equals("c")) {
             puntajePASistolica = 2;
         }
-        if (s.equals("tb")) {
-            puntajePASistolica = 1;
-        }
-        if (s.equals("tc")) {
+        if (s.equals("d")) {
             puntajePASistolica = 2;
         }
-        if (s.equals("td")) {
-            puntajePASistolica = 2;
-        }
-        if (s.equals("te")) {
+        if (s.equals("e")) {
             puntajePASistolica = 3;
         }
         return puntajePASistolica;
@@ -414,28 +405,16 @@ class Logica {
 
         int puntajePASistolica = 0;
 
-        if (s.equals("nb")) {
-            puntajePASistolica = 1;
-        }
-        if (s.equals("nc")) {
-            puntajePASistolica = 2;
-        }
-        if (s.equals("nd")) {
+        if (s.equals("b")) {
             puntajePASistolica = 3;
         }
-        if (s.equals("ne")) {
+        if (s.equals("c")) {
             puntajePASistolica = 4;
         }
-        if (s.equals("tb")) {
-            puntajePASistolica = 3;
-        }
-        if (s.equals("tc")) {
-            puntajePASistolica = 4;
-        }
-        if (s.equals("td")) {
+        if (s.equals("d")) {
             puntajePASistolica = 5;
         }
-        if (s.equals("te")) {
+        if (s.equals("e")) {
             puntajePASistolica = 6;
         }
         return puntajePASistolica;
