@@ -3,15 +3,13 @@ package unac.selfcare.selfcareapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.model.*;
-import unac.selfcare.selfcareapp.model.dtos.CAADto;
-import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
-import unac.selfcare.selfcareapp.model.dtos.UserDTO;
-import unac.selfcare.selfcareapp.model.dtos.UserToDx;
+import unac.selfcare.selfcareapp.model.dtos.*;
 import unac.selfcare.selfcareapp.model.Home;
 import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
 import unac.selfcare.selfcareapp.model.web.NOC;
+import unac.selfcare.selfcareapp.services.EmailServices;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 import unac.selfcare.selfcareapp.utils.FirstLogin;
@@ -27,9 +25,13 @@ public class AppController {
     private SelfcareServices service;
     @Autowired
     private LogInServices logInServices;
+    @Autowired
+    private EmailServices emailServices;
 
-    public AppController(SelfcareServices service) {
+    public AppController(SelfcareServices service, LogInServices logInServices, EmailServices emailServices) {
         this.service = service;
+        this.logInServices = logInServices;
+        this.emailServices = emailServices;
     }
 
     @GetMapping("/login")
@@ -126,5 +128,10 @@ public class AppController {
     @PostMapping("/finalDx")
     public Dx saveDx(@RequestBody Dx dx) {
         return service.saveDx(dx);
+    }
+
+    @PostMapping("/email")
+    public void sendEmail(@RequestBody EmailDTO dto) {
+        emailServices.sendEmail(dto);
     }
 }

@@ -1,7 +1,12 @@
 package unac.selfcare.selfcareapp.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import unac.selfcare.selfcareapp.email.Email;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.builders.CAABuilder;
 import unac.selfcare.selfcareapp.model.builders.FraminghamBuilder;
@@ -13,6 +18,7 @@ import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
 import unac.selfcare.selfcareapp.model.web.NOC;
+import unac.selfcare.selfcareapp.services.EmailServices;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 import unac.selfcare.selfcareapp.services.repositories.*;
@@ -24,10 +30,11 @@ import unac.selfcare.selfcareapp.utils.FirstLogin;
 import unac.selfcare.selfcareapp.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
-public class ServicesImplementation implements SelfcareServices, LogInServices {
+public class ServicesImplementation implements SelfcareServices, LogInServices, EmailServices {
 
     @Autowired
     private CAARepository caaRepository;
@@ -47,10 +54,17 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     private NicRepository nicRepository;
     @Autowired
     private DiagnosticRepository diagnosticRepository;
+    @Autowired
+    private JavaMailSender javaMailSender;
+    @Autowired
+    private EmailRepository emailRepository;
+
+    @Value("${email.to}")
+    private String setTo;
 
     public ServicesImplementation(CAARepository caaRepository, DXRepository dxRepository,
                                   FraminghamRepository framinghamRepository, UserRepository userRepository, HomeRepository homeRepository,
-                                  DomainRepository domainRepository, NocRepository nocRepository, NicRepository nicRepository, DiagnosticRepository diagnosticRepository) {
+                                  DomainRepository domainRepository, NocRepository nocRepository, NicRepository nicRepository, DiagnosticRepository diagnosticRepository, JavaMailSender javaMailSender, EmailRepository emailRepository) {
         this.caaRepository = caaRepository;
         this.dxRepository = dxRepository;
         this.framinghamRepository = framinghamRepository;
@@ -60,9 +74,10 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
         this.nocRepository = nocRepository;
         this.nicRepository = nicRepository;
         this.diagnosticRepository = diagnosticRepository;
+        this.javaMailSender = javaMailSender;
+        this.emailRepository = emailRepository;
     }
 
-    // Servicios para el Framingham
     @Override
     public Framingham postFramingham(FraminghamDto framinghamDto) {
         return framinghamRepository.save(FraminghamBuilder.build(framinghamDto));
@@ -80,13 +95,12 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
 
     @Override
     public Dx getDx(String documentNumber) {
-        Dx dx = dxRepository.findByDocumentNumber("0000000000");
-        dx.setDocumentNumber(documentNumber);
-        return dx;
+        return dxRepository.findByDocumentNumber(documentNumber);
     }
 
     @Override
-    public Dx saveDx(Dx dx) {
+    public Dx saveDx(Dx dx) throws MailException {
+
         return dxRepository.save(dx);
     }
 
@@ -114,7 +128,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     public List<NIC> getNicsByDiagnosticId(String diagnosticId) {
         return nicRepository.findByDiagnosticId(diagnosticId);
     }
-    
+
     @Override
     public CAA postCaa(CAADto caaDto) {
         return caaRepository.save(CAABuilder.build(caaDto));
@@ -159,7 +173,6 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
 
     @Override
     public User registerUser(UserDTO userDTO) {
-
         return userRepository.save(UserBuilder.build(userDTO));
     }
 
@@ -191,5 +204,23 @@ public class ServicesImplementation implements SelfcareServices, LogInServices {
     @Override
     public User getUser(String documentNumber) {
         return userRepository.findByDocumentNumber(documentNumber);
+    }
+
+    @Override
+    public void sendEmail(EmailDTO dto) {
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+
+        msg.setTo(setTo);
+        msg.setSentDate(new Date());
+        msg.setSubject(dto.getTituloEmail());
+        msg.setText(dto.getCuerpoEmail());
+        javaMailSender.send(msg);
+
+        emailRepository.save(Email.builder()
+                .documentNumber(dto.getDocumentNumber())
+                .tituloEmail(dto.getTituloEmail())
+                .cuerpoEmail(dto.getCuerpoEmail())
+                .build());
     }
 }
