@@ -5,7 +5,6 @@ import unac.selfcare.selfcareapp.email.Email;
 import unac.selfcare.selfcareapp.model.dtos.EmailDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface EmailServices {

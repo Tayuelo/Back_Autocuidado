@@ -112,7 +112,7 @@ public class AppController {
 
     @GetMapping("/diagnostic/{domainName}")
     public List<Diagnostic> getDiagnosticsByDomainId(@PathVariable("domainName") String domainName) {
-        return service.getDiagnosticsByDomainId(domainName);
+        return service.getDiagnosticsByDomainName(domainName);
     }
 
     @PostMapping("/diagnostic")

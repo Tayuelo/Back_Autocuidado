@@ -1,10 +1,12 @@
 package unac.selfcare.selfcareapp.services;
 
 import org.springframework.stereotype.Service;
-import unac.selfcare.selfcareapp.model.*;
+import unac.selfcare.selfcareapp.model.CAA;
+import unac.selfcare.selfcareapp.model.Dx;
+import unac.selfcare.selfcareapp.model.Framingham;
+import unac.selfcare.selfcareapp.model.Home;
 import unac.selfcare.selfcareapp.model.dtos.CAADto;
 import unac.selfcare.selfcareapp.model.dtos.FraminghamDto;
-import unac.selfcare.selfcareapp.model.Home;
 import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
@@ -41,7 +43,7 @@ public interface SelfcareServices {
 
     Home getHome(String documentNumber);
 
-    List<Diagnostic> getDiagnosticsByDomainId(String domainName);
+    List<Diagnostic> getDiagnosticsByDomainName(String domainName);
 
     Diagnostic saveDiagnostic(Diagnostic diagnostic);
 }

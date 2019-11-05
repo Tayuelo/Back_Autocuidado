@@ -163,7 +163,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     }
 
     @Override
-    public List<Diagnostic> getDiagnosticsByDomainId(String domainName) {
+    public List<Diagnostic> getDiagnosticsByDomainName(String domainName) {
         return diagnosticRepository.findAllByDomainName(domainName);
     }
 

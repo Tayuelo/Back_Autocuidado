@@ -1,8 +1,10 @@
 package unac.selfcare.selfcareapp.utils;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class FirstLogin {
 
     private boolean loginStatus;
