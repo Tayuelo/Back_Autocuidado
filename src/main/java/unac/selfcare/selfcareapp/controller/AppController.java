@@ -2,6 +2,7 @@ package unac.selfcare.selfcareapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import unac.selfcare.selfcareapp.email.Email;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.dtos.*;
 import unac.selfcare.selfcareapp.model.Home;
@@ -81,7 +82,7 @@ public class AppController {
     }
 
     @GetMapping("/domains")
-    public List<Domain> getDomains() {
+    public List<String> getDomains() {
         return service.getDomains();
     }
 
@@ -133,5 +134,15 @@ public class AppController {
     @PostMapping("/email")
     public void sendEmail(@RequestBody EmailDTO dto) {
         emailServices.sendEmail(dto);
+    }
+
+    @GetMapping("/inbox")
+    public List<Email> getEmails() {
+        return emailServices.getEmails();
+    }
+
+    @GetMapping("/inbox/{documentNumber}")
+    public List<Email> getEmailsByDocumentNumber(@PathVariable("documentNumber") String documentNumber) {
+        return emailServices.getEmailsByDocumentNumber(documentNumber);
     }
 }

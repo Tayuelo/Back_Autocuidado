@@ -23,7 +23,7 @@ public interface SelfcareServices {
 
     Framingham getFraminghamByDocumentNumber(String documentNumber);
 
-    List<Domain> getDomains();
+    List<String> getDomains();
 
     Dx getDx(String documentNumber);
 

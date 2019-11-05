@@ -89,8 +89,12 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     }
 
     @Override
-    public List<Domain> getDomains() {
-        return domainRepository.findAll();
+    public List<String> getDomains() {
+
+        List<String> domainNames = new ArrayList<>();
+        domainRepository.findAll().forEach(domain -> domainNames.add(domain.getDomainName()));
+
+        return domainNames;
     }
 
     @Override
@@ -99,8 +103,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     }
 
     @Override
-    public Dx saveDx(Dx dx) throws MailException {
-
+    public Dx saveDx(Dx dx) {
         return dxRepository.save(dx);
     }
 
@@ -204,6 +207,17 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     @Override
     public User getUser(String documentNumber) {
         return userRepository.findByDocumentNumber(documentNumber);
+    }
+
+    @Override
+    public List<Email> getEmails() {
+
+        return emailRepository.findAll();
+    }
+
+    @Override
+    public List<Email> getEmailsByDocumentNumber(String documentNumber) {
+        return emailRepository.findAllByDocumentNumber(documentNumber);
     }
 
     @Override
