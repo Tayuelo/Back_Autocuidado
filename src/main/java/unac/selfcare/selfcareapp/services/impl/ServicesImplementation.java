@@ -97,7 +97,9 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
 
     @Override
     public Dx getDx(String documentNumber) {
-        return dxRepository.findByDocumentNumber(documentNumber);
+        return (dxRepository.findByDocumentNumber(documentNumber) != null)
+                ? dxRepository.findByDocumentNumber(documentNumber)
+                : new Dx();
     }
 
     @Override
