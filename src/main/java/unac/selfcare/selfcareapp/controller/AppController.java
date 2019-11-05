@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import unac.selfcare.selfcareapp.email.Email;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.dtos.*;
-import unac.selfcare.selfcareapp.model.Home;
 import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
@@ -136,13 +135,13 @@ public class AppController {
         emailServices.sendEmail(dto);
     }
 
-    @GetMapping("/inbox")
-    public List<Email> getEmails() {
-        return emailServices.getEmails();
+    @GetMapping("/inboxWeb/{documentNumber}")
+    public List<Email> getEmailsWeb(@PathVariable("documentNumber") String documentNumber) {
+        return emailServices.getEmailsWeb(documentNumber);
     }
 
-    @GetMapping("/inbox/{documentNumber}")
-    public List<Email> getEmailsByDocumentNumber(@PathVariable("documentNumber") String documentNumber) {
-        return emailServices.getEmailsByDocumentNumber(documentNumber);
+    @GetMapping("/inboxMobile/{documentNumber}")
+    public List<Email> getEmailsMobile(@PathVariable("documentNumber") String documentNumber) {
+        return emailServices.getEmailsMobile(documentNumber);
     }
 }

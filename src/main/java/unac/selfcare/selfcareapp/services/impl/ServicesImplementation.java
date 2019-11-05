@@ -2,7 +2,6 @@ package unac.selfcare.selfcareapp.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import unac.selfcare.selfcareapp.model.builders.FraminghamBuilder;
 import unac.selfcare.selfcareapp.model.builders.UserBuilder;
 import unac.selfcare.selfcareapp.model.builders.UserToDxBuilder;
 import unac.selfcare.selfcareapp.model.dtos.*;
-import unac.selfcare.selfcareapp.model.Home;
 import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
@@ -210,14 +208,24 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     }
 
     @Override
-    public List<Email> getEmails() {
+    public List<Email> getEmailsWeb(String documentNumber) {
+        List<Email> webEmails = new ArrayList<>();
+        List<Email> emails = emailRepository.findAllByDocumentNumber(documentNumber);
+        emails.parallelStream().forEach(email -> {
+            if (email.getFrom() != null && email.getFrom().equals("Mobile")) webEmails.add(email);
+        });
 
-        return emailRepository.findAll();
+        return webEmails;
     }
 
     @Override
-    public List<Email> getEmailsByDocumentNumber(String documentNumber) {
-        return emailRepository.findAllByDocumentNumber(documentNumber);
+    public List<Email> getEmailsMobile(String documentNumber) {
+        List<Email> mobileEmails = new ArrayList<>();
+        List<Email> emails = emailRepository.findAllByDocumentNumber(documentNumber);
+        emails.parallelStream().forEach(email -> {
+            if (email.getFrom() != null && email.getFrom().equals("Web")) mobileEmails.add(email);
+        });
+        return mobileEmails;
     }
 
     @Override
@@ -225,14 +233,17 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
 
         SimpleMailMessage msg = new SimpleMailMessage();
 
-        msg.setTo(setTo);
-        msg.setSentDate(new Date());
-        msg.setSubject(dto.getTituloEmail());
-        msg.setText(dto.getCuerpoEmail());
-        javaMailSender.send(msg);
+        if (dto.getFrom().equals("Mobile")) {
+            msg.setTo(setTo);
+            msg.setSentDate(new Date());
+            msg.setSubject(dto.getTituloEmail());
+            msg.setText(dto.getCuerpoEmail());
+            javaMailSender.send(msg);
+        }
 
         emailRepository.save(Email.builder()
                 .documentNumber(dto.getDocumentNumber())
+                .from(dto.getFrom())
                 .tituloEmail(dto.getTituloEmail())
                 .cuerpoEmail(dto.getCuerpoEmail())
                 .build());

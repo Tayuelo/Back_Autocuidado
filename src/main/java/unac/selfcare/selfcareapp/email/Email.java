@@ -16,6 +16,7 @@ public class Email {
 
     @Id
     private String eMailId;
+    private String from;
     private String documentNumber;
     private String tituloEmail;
     private String cuerpoEmail;

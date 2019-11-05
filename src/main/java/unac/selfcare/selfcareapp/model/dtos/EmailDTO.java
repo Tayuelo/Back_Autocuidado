@@ -12,6 +12,7 @@ import lombok.Setter;
 public class EmailDTO {
 
     private String documentNumber;
+    private String from;
     private String tituloEmail;
     private String cuerpoEmail;
 }
