@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface DiagnosticRepository extends MongoRepository<Diagnostic, String> {
     List<Diagnostic> findAllByDomainId(String domainId);
+    List<Diagnostic> findAllByDomainName(String domainName);
 }

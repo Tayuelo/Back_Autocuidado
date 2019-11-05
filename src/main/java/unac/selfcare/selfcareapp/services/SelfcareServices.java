@@ -41,7 +41,7 @@ public interface SelfcareServices {
 
     Home getHome(String documentNumber);
 
-    List<Diagnostic> getDiagnosticsByDomainId(String domainId);
+    List<Diagnostic> getDiagnosticsByDomainId(String domainName);
 
     Diagnostic saveDiagnostic(Diagnostic diagnostic);
 }

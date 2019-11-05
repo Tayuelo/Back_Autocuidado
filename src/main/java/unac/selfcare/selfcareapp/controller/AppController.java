@@ -111,9 +111,9 @@ public class AppController {
         return service.getNocsByDiagnosticId(diagnosticId);
     }
 
-    @GetMapping("/diagnostic/{domainId}")
-    public List<Diagnostic> getDiagnosticsByDomainId(@PathVariable("domainId") String domainId) {
-        return service.getDiagnosticsByDomainId(domainId);
+    @GetMapping("/diagnostic/{domainName}")
+    public List<Diagnostic> getDiagnosticsByDomainId(@PathVariable("domainName") String domainName) {
+        return service.getDiagnosticsByDomainId(domainName);
     }
 
     @PostMapping("/diagnostic")

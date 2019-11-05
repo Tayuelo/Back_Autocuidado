@@ -17,6 +17,7 @@ public class Diagnostic {
     @Id
     private String diagnosticId;
     private String domainId;
+    private String domainName;
     private String diagnosticCode;
     private String diagnosticName;
     private String diagnosticDefinition;
