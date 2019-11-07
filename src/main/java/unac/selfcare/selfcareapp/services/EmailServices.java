@@ -10,5 +10,5 @@ import java.util.List;
 public interface EmailServices {
     List<Email> getEmailsWeb(String documentNumber);
     List<Email> getEmailsMobile(String documentNumber);
-    void sendEmail(EmailDTO dto);
+    String sendEmail(EmailDTO dto);
 }

@@ -2,6 +2,7 @@ package unac.selfcare.selfcareapp.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -231,24 +232,30 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     }
 
     @Override
-    public void sendEmail(EmailDTO dto) {
+    public String sendEmail(EmailDTO dto) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
 
-        if (dto.getFrom().equals("Mobile")) {
-            msg.setTo(setTo);
-            msg.setSentDate(new Date());
-            msg.setSubject(dto.getTituloEmail());
-            msg.setText(dto.getCuerpoEmail());
-            javaMailSender.send(msg);
+        try {
+            if (dto.getFrom().equals("Mobile")) {
+                msg.setTo(setTo);
+                msg.setSentDate(new Date());
+                msg.setSubject(dto.getTituloEmail());
+                msg.setText(dto.getCuerpoEmail());
+                javaMailSender.send(msg);
+            }
+
+            emailRepository.save(Email.builder()
+                    .documentNumber(dto.getDocumentNumber())
+                    .from(dto.getFrom())
+                    .date(new Date())
+                    .tituloEmail(dto.getTituloEmail())
+                    .cuerpoEmail(dto.getCuerpoEmail())
+                    .build());
+        } catch (Exception e) {
+            return e.getMessage();
         }
 
-        emailRepository.save(Email.builder()
-                .documentNumber(dto.getDocumentNumber())
-                .from(dto.getFrom())
-                .date(new Date())
-                .tituloEmail(dto.getTituloEmail())
-                .cuerpoEmail(dto.getCuerpoEmail())
-                .build());
+        return "Envío exitoso.";
     }
 }

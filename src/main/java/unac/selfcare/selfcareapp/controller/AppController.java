@@ -131,8 +131,8 @@ public class AppController {
     }
 
     @PostMapping("/email")
-    public void sendEmail(@RequestBody EmailDTO dto) {
-        emailServices.sendEmail(dto);
+    public String sendEmail(@RequestBody EmailDTO dto) {
+        return emailServices.sendEmail(dto);
     }
 
     @GetMapping("/inboxWeb/{documentNumber}")
