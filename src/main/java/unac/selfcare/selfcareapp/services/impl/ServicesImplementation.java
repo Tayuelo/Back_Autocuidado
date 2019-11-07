@@ -30,6 +30,7 @@ import unac.selfcare.selfcareapp.utils.Utils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class ServicesImplementation implements SelfcareServices, LogInServices, EmailServices {
@@ -56,6 +57,8 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     private JavaMailSender javaMailSender;
     @Autowired
     private EmailRepository emailRepository;
+
+    Logger logger;
 
     @Value("${email.to}")
     private String setTo;
@@ -256,6 +259,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
             msg.setText(dto.getCuerpoEmail());
             javaMailSender.send(msg);
         } catch (Exception e) {
+
             System.out.println("Error: " + e.getMessage());
         }
     }
