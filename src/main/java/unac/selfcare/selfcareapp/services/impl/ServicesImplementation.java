@@ -246,6 +246,7 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
         emailRepository.save(Email.builder()
                 .documentNumber(dto.getDocumentNumber())
                 .from(dto.getFrom())
+                .date(new Date())
                 .tituloEmail(dto.getTituloEmail())
                 .cuerpoEmail(dto.getCuerpoEmail())
                 .build());

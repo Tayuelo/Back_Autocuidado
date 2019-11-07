@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @Document(collection = "emails")
@@ -18,6 +20,7 @@ public class Email {
     private String eMailId;
     private String from;
     private String documentNumber;
+    private Date date;
     private String tituloEmail;
     private String cuerpoEmail;
 }
