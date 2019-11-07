@@ -233,8 +233,6 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     @Override
     public String sendEmail(EmailDTO dto) {
 
-        SimpleMailMessage msg = new SimpleMailMessage();
-
         emailRepository.save(Email.builder()
                 .documentNumber(dto.getDocumentNumber())
                 .from(dto.getFrom())
@@ -243,12 +241,19 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
                 .cuerpoEmail(dto.getCuerpoEmail())
                 .build());
 
+        emailSender(dto);
+
+        return "Envío exitoso.";
+    }
+
+    private void emailSender(EmailDTO dto) {
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+
         msg.setTo(setTo);
         msg.setSubject(dto.getTituloEmail());
         msg.setText(dto.getCuerpoEmail());
         javaMailSender.send(msg);
-
-        return "Envío exitoso.";
     }
 
     @Override
