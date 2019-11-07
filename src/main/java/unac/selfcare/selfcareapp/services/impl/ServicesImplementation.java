@@ -233,6 +233,8 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     @Override
     public String sendEmail(EmailDTO dto) {
 
+        emailSender(dto);
+
         emailRepository.save(Email.builder()
                 .documentNumber(dto.getDocumentNumber())
                 .from(dto.getFrom())
@@ -240,8 +242,6 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
                 .tituloEmail(dto.getTituloEmail())
                 .cuerpoEmail(dto.getCuerpoEmail())
                 .build());
-
-        emailSender(dto);
 
         return "Envío exitoso.";
     }
@@ -250,22 +250,22 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
 
         SimpleMailMessage msg = new SimpleMailMessage();
 
-        msg.setTo(setTo);
-        msg.setSubject(dto.getTituloEmail());
-        msg.setText(dto.getCuerpoEmail());
-        javaMailSender.send(msg);
+        try {
+            msg.setTo(setTo);
+            msg.setSubject(dto.getTituloEmail());
+            msg.setText(dto.getCuerpoEmail());
+            javaMailSender.send(msg);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     @Override
     public String sendMessageWeb(EmailDTO dto) {
 
-        emailRepository.save(Email.builder()
-                .documentNumber(dto.getDocumentNumber())
-                .from(dto.getFrom())
-                .date(new Date())
-                .tituloEmail(dto.getTituloEmail())
-                .cuerpoEmail(dto.getCuerpoEmail())
-                .build());
+        emailRepository.save(Email.builder().documentNumber(dto.getDocumentNumber()).from(dto.getFrom()).date(new Date())
+                .tituloEmail(dto.getTituloEmail()).cuerpoEmail(dto.getCuerpoEmail()).build());
+
         return "Envío exitoso";
     }
 }

@@ -18,9 +18,9 @@ public class Email {
 
     @Id
     private String eMailId;
+    private Date date;
     private String from;
     private String documentNumber;
-    private Date date;
     private String tituloEmail;
     private String cuerpoEmail;
 }
