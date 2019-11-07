@@ -11,4 +11,5 @@ public interface EmailServices {
     List<Email> getEmailsWeb(String documentNumber);
     List<Email> getEmailsMobile(String documentNumber);
     String sendEmail(EmailDTO dto);
+    String sendMessageWeb(EmailDTO dto);
 }

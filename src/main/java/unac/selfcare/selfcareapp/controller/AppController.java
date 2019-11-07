@@ -135,6 +135,11 @@ public class AppController {
         return emailServices.sendEmail(dto);
     }
 
+    @PostMapping("/message")
+    public String sendMessage(@RequestBody EmailDTO dto) {
+        return emailServices.sendMessageWeb(dto);
+    }
+
     @GetMapping("/inboxWeb/{documentNumber}")
     public List<Email> getEmailsWeb(@PathVariable("documentNumber") String documentNumber) {
         return emailServices.getEmailsWeb(documentNumber);
