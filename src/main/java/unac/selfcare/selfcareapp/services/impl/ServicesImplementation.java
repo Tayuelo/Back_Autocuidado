@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import sun.rmi.runtime.Log;
-import unac.selfcare.selfcareapp.email.Email;
+import unac.selfcare.selfcareapp.email.WebMessage;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.builders.CAABuilder;
 import unac.selfcare.selfcareapp.model.builders.FraminghamBuilder;
@@ -17,7 +16,7 @@ import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
 import unac.selfcare.selfcareapp.model.web.NOC;
-import unac.selfcare.selfcareapp.services.EmailServices;
+import unac.selfcare.selfcareapp.services.CommunicationService;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 import unac.selfcare.selfcareapp.services.repositories.*;
@@ -34,7 +33,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
-public class ServicesImplementation implements SelfcareServices, LogInServices, EmailServices {
+public class ServicesImplementation implements SelfcareServices, LogInServices, CommunicationService {
 
     @Autowired
     private CAARepository caaRepository;
@@ -57,16 +56,18 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     @Autowired
     private JavaMailSender javaMailSender;
     @Autowired
-    private EmailRepository emailRepository;
+    private WebMessageRepository webMessageRepository;
+    @Autowired
+    private AlarmaRepository alarmaRepository;
 
     Logger logger;
 
-    @Value("${email.to}")
+    @Value("${webMessage.to}")
     private String setTo;
 
     public ServicesImplementation(CAARepository caaRepository, DXRepository dxRepository,
                                   FraminghamRepository framinghamRepository, UserRepository userRepository, HomeRepository homeRepository,
-                                  DomainRepository domainRepository, NocRepository nocRepository, NicRepository nicRepository, DiagnosticRepository diagnosticRepository, JavaMailSender javaMailSender, EmailRepository emailRepository) {
+                                  DomainRepository domainRepository, NocRepository nocRepository, NicRepository nicRepository, DiagnosticRepository diagnosticRepository, JavaMailSender javaMailSender, WebMessageRepository webMessageRepository, AlarmaRepository alarmaRepository) {
         this.caaRepository = caaRepository;
         this.dxRepository = dxRepository;
         this.framinghamRepository = framinghamRepository;
@@ -77,7 +78,8 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
         this.nicRepository = nicRepository;
         this.diagnosticRepository = diagnosticRepository;
         this.javaMailSender = javaMailSender;
-        this.emailRepository = emailRepository;
+        this.webMessageRepository = webMessageRepository;
+        this.alarmaRepository = alarmaRepository;
     }
 
     @Override
@@ -148,9 +150,6 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
 
     @Override
     public Home getHome(String documentNumber) {
-
-        //TODO: Devolver en el HOME, lista recomendaciones para CAA y RCV
-
         Home home = new Home();
         Framingham resultadoRcv = getFraminghamByDocumentNumber(documentNumber);
         CAA resultadoCaa = getCaaByDocumentNumber(documentNumber);
@@ -206,51 +205,42 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     }
 
     @Override
-    public List<Email> getEmailsWeb(String documentNumber) {
-        List<Email> webEmails = new ArrayList<>();
-        List<Email> emails = emailRepository.findAllByDocumentNumber(documentNumber);
-        emails.parallelStream().forEach(email -> {
-            if (email.getFrom() != null && email.getFrom().equals("Mobile")) webEmails.add(email);
-        });
-
-        return webEmails;
+    public List<Alarma> getAlarmaWeb(String documentNumber) {
+        return alarmaRepository.findAllByDocumentNumber(documentNumber);
     }
 
     @Override
-    public List<Email> getEmailsMobile(String documentNumber) {
-        List<Email> mobileEmails = new ArrayList<>();
-        List<Email> emails = emailRepository.findAllByDocumentNumber(documentNumber);
-        emails.parallelStream().forEach(email -> {
-            if (email.getFrom() != null && email.getFrom().equals("Web")) mobileEmails.add(email);
-        });
-        return mobileEmails;
+    public List<WebMessage> getWebMessage(String documentNumber) {
+        return webMessageRepository.findAllByDocumentNumber(documentNumber);
     }
 
     @Override
-    public String sendEmail(EmailDTO dto) {
+    public String sendAlarm(AlarmDto dto) {
 
         emailSender(dto);
 
-        emailRepository.save(Email.builder()
+        alarmaRepository.save(Alarma.builder()
                 .documentNumber(dto.getDocumentNumber())
-                .from(dto.getFrom())
-                .date(new Date())
-                .tituloEmail(dto.getTituloEmail())
-                .cuerpoEmail(dto.getCuerpoEmail())
+                .alarmDate(new Date())
+                .preguntaList(dto.getPreguntaList())
                 .build());
 
         return "Envío exitoso.";
     }
 
-    private void emailSender(EmailDTO dto) {
+    private void emailSender(AlarmDto dto) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
 
         try {
             msg.setTo(setTo);
-            msg.setSubject(dto.getTituloEmail());
-            msg.setText(dto.getCuerpoEmail());
+            msg.setSubject("¡Alarma!");
+            msg.setText("Hay una nueva alarma enviada por: " + userRepository.findByDocumentNumber(dto.getDocumentNumber()).getUserName()
+                    + " " + userRepository.findByDocumentNumber(dto.getDocumentNumber()).getLastName() + "\n"
+                    + "¡Apresúrate a revisarla!");
+
             javaMailSender.send(msg);
+
         } catch (Exception e) {
 
             System.out.println("Error: " + e.getMessage());
@@ -258,9 +248,9 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
     }
 
     @Override
-    public String sendMessageWeb(EmailDTO dto) {
+    public String sendWebMessage(WebMessageDto dto) {
 
-        emailRepository.save(Email.builder().documentNumber(dto.getDocumentNumber()).from(dto.getFrom()).date(new Date())
+        webMessageRepository.save(WebMessage.builder().documentNumber(dto.getDocumentNumber()).from(dto.getFrom()).date(new Date())
                 .tituloEmail(dto.getTituloEmail()).cuerpoEmail(dto.getCuerpoEmail()).build());
 
         return "Envío exitoso";

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailDTO {
+public class WebMessageDto {
 
     private String documentNumber;
     private String from;

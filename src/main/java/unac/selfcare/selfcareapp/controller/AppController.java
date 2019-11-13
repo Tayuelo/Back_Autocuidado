@@ -2,14 +2,14 @@ package unac.selfcare.selfcareapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import unac.selfcare.selfcareapp.email.Email;
+import unac.selfcare.selfcareapp.email.WebMessage;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.dtos.*;
 import unac.selfcare.selfcareapp.model.web.Diagnostic;
 import unac.selfcare.selfcareapp.model.web.Domain;
 import unac.selfcare.selfcareapp.model.web.NIC;
 import unac.selfcare.selfcareapp.model.web.NOC;
-import unac.selfcare.selfcareapp.services.EmailServices;
+import unac.selfcare.selfcareapp.services.CommunicationService;
 import unac.selfcare.selfcareapp.services.LogInServices;
 import unac.selfcare.selfcareapp.services.SelfcareServices;
 import unac.selfcare.selfcareapp.utils.FirstLogin;
@@ -26,12 +26,12 @@ public class AppController {
     @Autowired
     private LogInServices logInServices;
     @Autowired
-    private EmailServices emailServices;
+    private CommunicationService communicationService;
 
-    public AppController(SelfcareServices service, LogInServices logInServices, EmailServices emailServices) {
+    public AppController(SelfcareServices service, LogInServices logInServices, CommunicationService communicationService) {
         this.service = service;
         this.logInServices = logInServices;
-        this.emailServices = emailServices;
+        this.communicationService = communicationService;
     }
 
     @GetMapping("/login")
@@ -130,23 +130,23 @@ public class AppController {
         return service.saveDx(dx);
     }
 
-    @PostMapping("/email")
-    public String sendEmail(@RequestBody EmailDTO dto) {
-        return emailServices.sendEmail(dto);
+    @PostMapping("/alarma")
+    public String sendAlarma(@RequestBody AlarmDto dto) {
+        return communicationService.sendAlarm(dto);
     }
 
     @PostMapping("/message")
-    public String sendMessage(@RequestBody EmailDTO dto) {
-        return emailServices.sendMessageWeb(dto);
+    public String sendMessage(@RequestBody WebMessageDto dto) {
+        return communicationService.sendWebMessage(dto);
     }
 
     @GetMapping("/inboxWeb/{documentNumber}")
-    public List<Email> getEmailsWeb(@PathVariable("documentNumber") String documentNumber) {
-        return emailServices.getEmailsWeb(documentNumber);
+    public List<Alarma> getEmailsWeb(@PathVariable("documentNumber") String documentNumber) {
+        return communicationService.getAlarmaWeb(documentNumber);
     }
 
     @GetMapping("/inboxMobile/{documentNumber}")
-    public List<Email> getEmailsMobile(@PathVariable("documentNumber") String documentNumber) {
-        return emailServices.getEmailsMobile(documentNumber);
+    public List<WebMessage> getEmailsMobile(@PathVariable("documentNumber") String documentNumber) {
+        return communicationService.getWebMessage(documentNumber);
     }
 }

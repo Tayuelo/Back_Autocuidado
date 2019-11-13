@@ -14,10 +14,10 @@ import java.util.Date;
 @Document(collection = "emails")
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class Email {
+public class WebMessage {
 
     @Id
-    private String eMailId;
+    private String messageId;
     private Date date;
     private String from;
     private String documentNumber;
