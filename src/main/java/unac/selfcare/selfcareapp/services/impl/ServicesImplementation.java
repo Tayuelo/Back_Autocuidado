@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import sun.rmi.runtime.Log;
 import unac.selfcare.selfcareapp.email.Email;
 import unac.selfcare.selfcareapp.model.*;
 import unac.selfcare.selfcareapp.model.builders.CAABuilder;
@@ -147,24 +148,16 @@ public class ServicesImplementation implements SelfcareServices, LogInServices, 
 
     @Override
     public Home getHome(String documentNumber) {
-        Logica logic = new Logica();
-        String resultadoRcv = getFraminghamByDocumentNumber(documentNumber).getResult();
-        String resultadoCaa = getCaaByDocumentNumber(documentNumber).getResult();
 
-        String color = logic.getColor(resultadoCaa, resultadoRcv);
-        switch (color) {
-            case "AMARILLO":
-                return homeRepository.findByTextsByColor("1");
-            case "NARANJA":
-                return homeRepository.findByTextsByColor("2");
-            case "ROJO":
-                return homeRepository.findByTextsByColor("3");
-            case "VERDE":
-                return homeRepository.findByTextsByColor("4");
-            default:
-                break;
-        }
-        return homeRepository.findByTextsByColor("0");
+        //TODO: Devolver en el HOME, lista recomendaciones para CAA y RCV
+
+        Home home = new Home();
+        Framingham resultadoRcv = getFraminghamByDocumentNumber(documentNumber);
+        CAA resultadoCaa = getCaaByDocumentNumber(documentNumber);
+        Logica logic = new Logica();
+        home.setColor(logic.getColor(resultadoCaa.getResult(), resultadoRcv.getResult()));
+        home.setRecomendacionesList(logic.getRecomendaciones(resultadoCaa, resultadoRcv));
+        return home;
     }
 
     @Override

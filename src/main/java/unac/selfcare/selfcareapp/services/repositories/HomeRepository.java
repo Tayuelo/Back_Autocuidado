@@ -6,5 +6,4 @@ import unac.selfcare.selfcareapp.model.Home;
 
 @Repository
 public interface HomeRepository extends MongoRepository<Home, String> {
-    Home findByTextsByColor(String textByColor);
 }
