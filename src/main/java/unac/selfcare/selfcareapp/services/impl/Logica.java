@@ -476,7 +476,7 @@ public class Logica {
         return recomendacionesList;
     }
 
-    static String dietaMsg = "Te recomendamos aumentar el consumo de verduras, frutas, " +
+    static String dietaMsg = "<b>Dieta</b>\nTe recomendamos aumentar el consumo de verduras, frutas, " +
             "fibra a cinco porciones al día, al igual que una dieta baja en grasas saturadas.";
     static String actividadFisicaMsg = "Recuerda realizar caminatas programadas diariamente," +
             " como mínimo, 30 minutos.";
